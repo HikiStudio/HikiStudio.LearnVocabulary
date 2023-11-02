@@ -16,9 +16,11 @@
             /// </summary>
             public const int PronunciationTypeDefaultID = 1;
 
+            public static readonly Guid CreateByDefault = new Guid("0B64F6F0-9F60-45C9-9E7B-F68CCC3FC57F");
 
+            public const string URLDownloadFileMP3 = "https://api.soundoftext.com/sounds";
 
-
+            public const string URLFolderSaveVocabularyWord = "E:\\HikiStudio\\HikiStudio.Stored\\HikiStudio.LearnVocabulary";
         }
     }
 }

@@ -1,15 +1,8 @@
-﻿using HikiStudio.LearnVocabulary.ViewModels.AudioClips;
-using HikiStudio.LearnVocabulary.ViewModels.Base;
-
-namespace HikiStudio.LearnVocabulary.ViewModels.VocabularyWords
+﻿namespace HikiStudio.LearnVocabulary.ViewModels.VocabularyWords.DataRequest
 {
-    public class VocabularyWordViewModel : BaseViewModel<Guid>
+    public class CreateVocabularyWordRequest
     {
-        public long VocabularyWordID { get; set; }
-
         public int VocabularyTypeID { get; set; }
-
-        public int LanguageID { get; set; }
 
         public string Word { get; set; } = string.Empty;
 
@@ -24,7 +17,5 @@ namespace HikiStudio.LearnVocabulary.ViewModels.VocabularyWords
         public string? Antonyms { get; set; }
 
         public string? ImageURL { get; set; }
-
-        public List<AudioClipViewModel>? AudioClips { get; set; }
     }
 }

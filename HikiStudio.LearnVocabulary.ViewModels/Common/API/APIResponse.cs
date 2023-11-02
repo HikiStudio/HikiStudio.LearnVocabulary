@@ -7,10 +7,17 @@ namespace HikiStudio.LearnVocabulary.ViewModels.Common.API
     {
         public bool IsSuccessed { get; set; }
 
-        public Maybe<string> Message { get; set; }
+        public string? Message { get; set; }
 
         public StatusCodeEnum StatusCode { get; set; }
 
-        public Maybe<TResponse> ResultObj { get; set; }
+        public TResponse? ResultObj { get; set; }
+
+
+        //public Maybe<string> Message { get; set; }
+
+        //public StatusCodeEnum StatusCode { get; set; }
+
+        //public Maybe<TResponse> ResultObj { get; set; }
     }
 }

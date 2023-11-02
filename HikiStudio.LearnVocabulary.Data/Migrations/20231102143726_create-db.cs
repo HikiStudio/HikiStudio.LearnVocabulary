@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace HikiStudio.LearnVocabulary.Data.Migrations
 {
-    public partial class CreateDB : Migration
+    public partial class createdb : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -97,6 +97,7 @@ namespace HikiStudio.LearnVocabulary.Data.Migrations
                     PronunciationTypeID = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     PronunciationTypeName = table.Column<string>(type: "nvarchar(500)", maxLength: 500, nullable: false),
+                    Description = table.Column<string>(type: "nvarchar(1000)", maxLength: 1000, nullable: true),
                     IsDeleted = table.Column<bool>(type: "bit", nullable: false, defaultValue: false),
                     DateCreated = table.Column<DateTime>(type: "datetime2", nullable: false),
                     CreatedBy = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
@@ -312,30 +313,57 @@ namespace HikiStudio.LearnVocabulary.Data.Migrations
                 columns: new[] { "Id", "ConcurrencyStamp", "CreatedBy", "DateCreated", "DateUpdated", "Description", "Name", "NormalizedName", "UpdatedBy" },
                 values: new object[,]
                 {
-                    { new Guid("2f0c7b75-8934-4101-bef2-c850e42d21de"), "1dde045e-2f20-4209-922c-228917f1a04f", new Guid("0b64f6f0-9f60-45c9-9e7b-f68ccc3fc57f"), new DateTime(2023, 10, 31, 23, 5, 15, 933, DateTimeKind.Local).AddTicks(1869), null, "Reader Role", "reader", "READER", null },
-                    { new Guid("71b1b0a6-7eab-476c-b177-1d37e120184c"), "b0eae8e2-4650-4bab-849f-938e09104d17", new Guid("0b64f6f0-9f60-45c9-9e7b-f68ccc3fc57f"), new DateTime(2023, 10, 31, 23, 5, 15, 933, DateTimeKind.Local).AddTicks(1851), null, "Creator Role", "creator", "CREATOR", null },
-                    { new Guid("c489f858-aabd-4264-96c1-5cdca251d871"), "5ab4d9fc-d60b-4d3b-af73-bb81bd9075cb", new Guid("0b64f6f0-9f60-45c9-9e7b-f68ccc3fc57f"), new DateTime(2023, 10, 31, 23, 5, 15, 933, DateTimeKind.Local).AddTicks(1848), null, "Team Members Role", "teamMembers", "TEAMMEMBERS", null },
-                    { new Guid("e1db1200-1bb6-4156-9da3-135e91d94aba"), "4d3dd428-2b33-40f0-98fa-a0ca53c56b91", new Guid("0b64f6f0-9f60-45c9-9e7b-f68ccc3fc57f"), new DateTime(2023, 10, 31, 23, 5, 15, 933, DateTimeKind.Local).AddTicks(1837), null, "Administrator Role", "admin", "ADMIN", null }
+                    { new Guid("2f0c7b75-8934-4101-bef2-c850e42d21de"), "dd618d51-ca12-4a5f-9dbe-5972b309707b", new Guid("0b64f6f0-9f60-45c9-9e7b-f68ccc3fc57f"), new DateTime(2023, 11, 2, 21, 37, 26, 303, DateTimeKind.Local).AddTicks(43), null, "Reader Role", "reader", "READER", null },
+                    { new Guid("71b1b0a6-7eab-476c-b177-1d37e120184c"), "e95bbd76-293c-41a0-8fc4-37e9ccd3e07f", new Guid("0b64f6f0-9f60-45c9-9e7b-f68ccc3fc57f"), new DateTime(2023, 11, 2, 21, 37, 26, 303, DateTimeKind.Local).AddTicks(39), null, "Creator Role", "creator", "CREATOR", null },
+                    { new Guid("c489f858-aabd-4264-96c1-5cdca251d871"), "289b90f1-5da3-44f4-8cd0-bfcc021f0bd6", new Guid("0b64f6f0-9f60-45c9-9e7b-f68ccc3fc57f"), new DateTime(2023, 11, 2, 21, 37, 26, 303, DateTimeKind.Local).AddTicks(35), null, "Team Members Role", "teamMembers", "TEAMMEMBERS", null },
+                    { new Guid("e1db1200-1bb6-4156-9da3-135e91d94aba"), "9831d75a-11cb-47f8-a0f3-2869fd2d4312", new Guid("0b64f6f0-9f60-45c9-9e7b-f68ccc3fc57f"), new DateTime(2023, 11, 2, 21, 37, 26, 303, DateTimeKind.Local).AddTicks(15), null, "Administrator Role", "admin", "ADMIN", null }
                 });
 
             migrationBuilder.InsertData(
                 table: "AppUsers",
                 columns: new[] { "Id", "AccessFailedCount", "AppUserTypeId", "ConcurrencyStamp", "CreatedBy", "DOB", "DateCreated", "DatePasswordChanged", "Email", "EmailConfirmed", "FirstName", "GenderId", "IsCreateAppUserWithThirdParty", "IsOTPVerified", "IsPasswordChanged", "LastName", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "OTP", "OTPExpires", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "RefreshToken", "SecurityStamp", "TokenCreated", "TokenExpires", "TwoFactorEnabled", "UserImageURL", "UserName" },
-                values: new object[] { new Guid("0ae34db7-ea08-42d2-9aef-098efcdd2c1e"), 0, 0, "02411099-33a4-49d9-b861-deff4ee3f5e5", null, new DateTime(2000, 5, 8, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(2023, 10, 31, 23, 5, 15, 947, DateTimeKind.Local).AddTicks(1949), "hikistudio@hiki.space", true, "Admin", 2, false, null, true, "HikiStudio", false, null, "HIKISTUDIO@HIKI.SPACE", "HIKISTUDIO", null, null, "AQAAAAEAACcQAAAAEPuf+XwjkEFoOEBNQby8QPoHhpD+ayH+8MD4OiWW6yyXyunrJmPMGkhr5BAkYzNp0w==", null, false, null, "", null, null, false, "", "hikistudio" });
+                values: new object[] { new Guid("0ae34db7-ea08-42d2-9aef-098efcdd2c1e"), 0, 0, "9aa2cf71-bf50-42ee-aae7-5eadebc0f9e1", null, new DateTime(2000, 5, 8, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(2023, 11, 2, 21, 37, 26, 316, DateTimeKind.Local).AddTicks(7657), "hikistudio@hiki.space", true, "Admin", 2, false, null, true, "HikiStudio", false, null, "HIKISTUDIO@HIKI.SPACE", "HIKISTUDIO", null, null, "AQAAAAEAACcQAAAAENBjDWxlx8ZtIK6jjPnmrk8zOoGv8P+u5abQZTdQUdf0kCxxIAxbSIO07gGfVJD/rw==", null, false, null, "", null, null, false, "", "hikistudio" });
 
             migrationBuilder.InsertData(
                 table: "AppUsers",
                 columns: new[] { "Id", "AccessFailedCount", "AppUserTypeId", "ConcurrencyStamp", "CreatedBy", "DOB", "DateCreated", "DatePasswordChanged", "Email", "EmailConfirmed", "FirstName", "GenderId", "IsCreateAppUserWithThirdParty", "IsOTPVerified", "LastName", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "OTP", "OTPExpires", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "RefreshToken", "SecurityStamp", "TokenCreated", "TokenExpires", "TwoFactorEnabled", "UserImageURL", "UserName" },
-                values: new object[] { new Guid("0b64f6f0-9f60-45c9-9e7b-f68ccc3fc57f"), 0, 0, "1b4e3857-d120-4ad9-9ae5-a26468466236", null, new DateTime(2001, 10, 8, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "tranquangbdhz@gmail.com", true, "Tran", 1, false, null, "Quang", false, null, "TRANQUANGBDHZ@GMAIL.COM", "ADMIN", null, null, "AQAAAAEAACcQAAAAEAqhkmDy/vWD20rFdWiyuPUrJoB1ecesiHiKvSSnfPSQKgIvHrZvzCXwlm2can6QVQ==", null, false, null, "", null, null, false, "", "quangbdhz" });
+                values: new object[] { new Guid("0b64f6f0-9f60-45c9-9e7b-f68ccc3fc57f"), 0, 0, "9672b76e-3d48-4c42-9a0b-129744242bab", null, new DateTime(2001, 10, 8, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "tranquangbdhz@gmail.com", true, "Tran", 1, false, null, "Quang", false, null, "TRANQUANGBDHZ@GMAIL.COM", "ADMIN", null, null, "AQAAAAEAACcQAAAAEC5wd4u3BZ2m5zJrYRwSoxxpe25jfl8VI9sCQVW1gXldw/jG6fijG3VT3y8yIgGLWA==", null, false, null, "", null, null, false, "", "quangbdhz" });
 
             migrationBuilder.InsertData(
                 table: "AppUsers",
                 columns: new[] { "Id", "AccessFailedCount", "AppUserTypeId", "ConcurrencyStamp", "CreatedBy", "DOB", "DateCreated", "DatePasswordChanged", "Email", "EmailConfirmed", "FirstName", "GenderId", "IsCreateAppUserWithThirdParty", "IsOTPVerified", "IsPasswordChanged", "LastName", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "OTP", "OTPExpires", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "RefreshToken", "SecurityStamp", "TokenCreated", "TokenExpires", "TwoFactorEnabled", "UserImageURL", "UserName" },
                 values: new object[,]
                 {
-                    { new Guid("3e3245cb-bc7b-4c08-ad09-72fbd736fc9a"), 0, 0, "079ea7f7-04c4-4da1-a186-93f301712082", null, new DateTime(1990, 10, 8, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(2023, 10, 31, 23, 5, 15, 954, DateTimeKind.Local).AddTicks(4486), "lionelmessi@hiki.space", true, "Lionel", 1, false, null, true, "Messi", false, null, "LIONELMESSI@HIKI.SPACE", "YUKINO", null, null, "AQAAAAEAACcQAAAAEJ8kIPFx5dd/PAAj/WcbNuuHP5OiYGCa93JRNvGB2SL7K8xBJnML2QlLgQfLbR5IbA==", null, false, null, "", null, null, false, "", "lionelmessi" },
-                    { new Guid("4354acbc-a32a-4a28-b865-deb49695171f"), 0, 0, "41f36d66-fffa-461a-9c4e-c5084b9b5940", null, new DateTime(2001, 10, 8, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(2023, 10, 31, 23, 5, 15, 968, DateTimeKind.Local).AddTicks(3794), "reader@hiki.space", true, "Reader", 3, false, null, true, "HikiStudio", false, null, "READER@HIKI.SPACE", "READER", null, null, "AQAAAAEAACcQAAAAEIzcO8CNBxnEcQ6JeXDXLj2MQIiZhB7sIx7xItpz5RCiWHKsF/j4z9MYwc/CJ+udTg==", null, false, null, "", null, null, false, "", "reader" },
-                    { new Guid("d8682aa6-255a-4b31-aeaa-1aff35a8be58"), 0, 0, "b9804ab0-27ca-43a9-a89d-edc9361e97e9", null, new DateTime(2001, 10, 8, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(2023, 10, 31, 23, 5, 15, 961, DateTimeKind.Local).AddTicks(4905), "creator@hiki.space", true, "Creator", 2, false, null, true, "HikiStudio", false, null, "CREATOR@HIKI.SPACE", "CREATOR", null, null, "AQAAAAEAACcQAAAAELaEC0a/2fhqK+zhKKe8xglhL8CTuTQiKfZThuxOgl1ZEx//n3rmH2ycWzqsEOwg0Q==", null, false, null, "", null, null, false, "", "creator" }
+                    { new Guid("3e3245cb-bc7b-4c08-ad09-72fbd736fc9a"), 0, 0, "3dbeec78-0244-4e6d-94e4-ef4c4bad8ca4", null, new DateTime(1990, 10, 8, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(2023, 11, 2, 21, 37, 26, 323, DateTimeKind.Local).AddTicks(6665), "lionelmessi@hiki.space", true, "Lionel", 1, false, null, true, "Messi", false, null, "LIONELMESSI@HIKI.SPACE", "YUKINO", null, null, "AQAAAAEAACcQAAAAEDLqrGMzLekH6xzR+e5lfBv2UPgZMe9sZD3WzVmJQaYGh82rZF5EOdsZ98GBaiq5eA==", null, false, null, "", null, null, false, "", "lionelmessi" },
+                    { new Guid("4354acbc-a32a-4a28-b865-deb49695171f"), 0, 0, "5f5f2f6a-a0c4-4e8a-b63d-515dfb90f71e", null, new DateTime(2001, 10, 8, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(2023, 11, 2, 21, 37, 26, 337, DateTimeKind.Local).AddTicks(3629), "reader@hiki.space", true, "Reader", 3, false, null, true, "HikiStudio", false, null, "READER@HIKI.SPACE", "READER", null, null, "AQAAAAEAACcQAAAAEFHae+DnmjlchTjwLao4MMBER79VptmhSMxSfMxjhP+GTROVMub9xNIKcD2ZK+oP5w==", null, false, null, "", null, null, false, "", "reader" },
+                    { new Guid("d8682aa6-255a-4b31-aeaa-1aff35a8be58"), 0, 0, "341a6481-dec7-4591-955b-8c91fe66dff1", null, new DateTime(2001, 10, 8, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(2023, 11, 2, 21, 37, 26, 330, DateTimeKind.Local).AddTicks(5218), "creator@hiki.space", true, "Creator", 2, false, null, true, "HikiStudio", false, null, "CREATOR@HIKI.SPACE", "CREATOR", null, null, "AQAAAAEAACcQAAAAEFJgyS5aOSv+EMoxzm2wnMBuU+6n2HbwxRswGBIuDlzTKn+McRaA0IlQPUxnE0KgrQ==", null, false, null, "", null, null, false, "", "creator" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "Languages",
+                columns: new[] { "LanguageID", "CreatedBy", "DateCreated", "DateUpdated", "LanguageName", "UpdatedBy" },
+                values: new object[] { 1, new Guid("0b64f6f0-9f60-45c9-9e7b-f68ccc3fc57f"), new DateTime(2023, 11, 2, 21, 37, 26, 337, DateTimeKind.Local).AddTicks(3706), null, "English", null });
+
+            migrationBuilder.InsertData(
+                table: "PronunciationTypes",
+                columns: new[] { "PronunciationTypeID", "CreatedBy", "DateCreated", "DateUpdated", "Description", "PronunciationTypeName", "UpdatedBy" },
+                values: new object[,]
+                {
+                    { 1, new Guid("0b64f6f0-9f60-45c9-9e7b-f68ccc3fc57f"), new DateTime(2023, 11, 2, 21, 37, 26, 337, DateTimeKind.Local).AddTicks(3757), null, "", "Vocal US", null },
+                    { 2, new Guid("0b64f6f0-9f60-45c9-9e7b-f68ccc3fc57f"), new DateTime(2023, 11, 2, 21, 37, 26, 337, DateTimeKind.Local).AddTicks(3759), null, "", "Vocal UK", null }
+                });
+
+            migrationBuilder.InsertData(
+                table: "VocabularyTypes",
+                columns: new[] { "VocabularyTypeID", "CreatedBy", "DateCreated", "DateUpdated", "UpdatedBy", "VocabularyTypeName" },
+                values: new object[,]
+                {
+                    { 1, new Guid("0b64f6f0-9f60-45c9-9e7b-f68ccc3fc57f"), new DateTime(2023, 11, 2, 21, 37, 26, 337, DateTimeKind.Local).AddTicks(3729), null, null, "900 Vocabulary" },
+                    { 2, new Guid("0b64f6f0-9f60-45c9-9e7b-f68ccc3fc57f"), new DateTime(2023, 11, 2, 21, 37, 26, 337, DateTimeKind.Local).AddTicks(3731), null, null, "Adjective" },
+                    { 3, new Guid("0b64f6f0-9f60-45c9-9e7b-f68ccc3fc57f"), new DateTime(2023, 11, 2, 21, 37, 26, 337, DateTimeKind.Local).AddTicks(3732), null, null, "Adverb" },
+                    { 4, new Guid("0b64f6f0-9f60-45c9-9e7b-f68ccc3fc57f"), new DateTime(2023, 11, 2, 21, 37, 26, 337, DateTimeKind.Local).AddTicks(3734), null, null, "Verb" },
+                    { 5, new Guid("0b64f6f0-9f60-45c9-9e7b-f68ccc3fc57f"), new DateTime(2023, 11, 2, 21, 37, 26, 337, DateTimeKind.Local).AddTicks(3735), null, null, "Reading" },
+                    { 6, new Guid("0b64f6f0-9f60-45c9-9e7b-f68ccc3fc57f"), new DateTime(2023, 11, 2, 21, 37, 26, 337, DateTimeKind.Local).AddTicks(3737), null, null, "Listening" }
                 });
 
             migrationBuilder.InsertData(
@@ -343,15 +371,15 @@ namespace HikiStudio.LearnVocabulary.Data.Migrations
                 columns: new[] { "AppUserRoleId", "RoleId", "UserId" },
                 values: new object[,]
                 {
-                    { new Guid("553a9b94-0e18-43cd-b6a8-e1142ae15dbc"), new Guid("2f0c7b75-8934-4101-bef2-c850e42d21de"), new Guid("0ae34db7-ea08-42d2-9aef-098efcdd2c1e") },
-                    { new Guid("5c4c5850-7e50-48e9-ab16-a65c4c7dd2bf"), new Guid("e1db1200-1bb6-4156-9da3-135e91d94aba"), new Guid("0ae34db7-ea08-42d2-9aef-098efcdd2c1e") },
-                    { new Guid("39ae1190-1b0a-4fcd-9e3c-a101e1cc1fe0"), new Guid("2f0c7b75-8934-4101-bef2-c850e42d21de"), new Guid("0b64f6f0-9f60-45c9-9e7b-f68ccc3fc57f") },
-                    { new Guid("706cec7c-8410-4070-8b8f-7f3176a2e344"), new Guid("e1db1200-1bb6-4156-9da3-135e91d94aba"), new Guid("0b64f6f0-9f60-45c9-9e7b-f68ccc3fc57f") },
-                    { new Guid("fcee965a-d828-43d3-85a8-61417b9a20a5"), new Guid("2f0c7b75-8934-4101-bef2-c850e42d21de"), new Guid("3e3245cb-bc7b-4c08-ad09-72fbd736fc9a") },
-                    { new Guid("4d57e875-7e27-4114-a00b-eb3f9b821ae4"), new Guid("c489f858-aabd-4264-96c1-5cdca251d871"), new Guid("3e3245cb-bc7b-4c08-ad09-72fbd736fc9a") },
-                    { new Guid("4dae3bc2-0757-4061-a757-43a09f87fe30"), new Guid("2f0c7b75-8934-4101-bef2-c850e42d21de"), new Guid("4354acbc-a32a-4a28-b865-deb49695171f") },
-                    { new Guid("c25eb131-2b43-4477-b52d-98bbb198bf99"), new Guid("2f0c7b75-8934-4101-bef2-c850e42d21de"), new Guid("d8682aa6-255a-4b31-aeaa-1aff35a8be58") },
-                    { new Guid("dd725f3c-4ac0-4af4-a379-c164af4e8e30"), new Guid("71b1b0a6-7eab-476c-b177-1d37e120184c"), new Guid("d8682aa6-255a-4b31-aeaa-1aff35a8be58") }
+                    { new Guid("2cc6a853-6563-4892-8a46-3781969f544a"), new Guid("2f0c7b75-8934-4101-bef2-c850e42d21de"), new Guid("0ae34db7-ea08-42d2-9aef-098efcdd2c1e") },
+                    { new Guid("7467685b-0f44-4352-a9f9-3cae8b60e0b9"), new Guid("e1db1200-1bb6-4156-9da3-135e91d94aba"), new Guid("0ae34db7-ea08-42d2-9aef-098efcdd2c1e") },
+                    { new Guid("a6debbc6-bb53-4f57-be91-9eee05499c94"), new Guid("2f0c7b75-8934-4101-bef2-c850e42d21de"), new Guid("0b64f6f0-9f60-45c9-9e7b-f68ccc3fc57f") },
+                    { new Guid("ca714a3b-6500-43b7-a1f6-14de2c84f0e9"), new Guid("e1db1200-1bb6-4156-9da3-135e91d94aba"), new Guid("0b64f6f0-9f60-45c9-9e7b-f68ccc3fc57f") },
+                    { new Guid("68488130-0ebc-4e51-a602-e010777fbf29"), new Guid("2f0c7b75-8934-4101-bef2-c850e42d21de"), new Guid("3e3245cb-bc7b-4c08-ad09-72fbd736fc9a") },
+                    { new Guid("8d1de9d9-8903-4783-97cc-7ba128615945"), new Guid("c489f858-aabd-4264-96c1-5cdca251d871"), new Guid("3e3245cb-bc7b-4c08-ad09-72fbd736fc9a") },
+                    { new Guid("a7dc5930-0067-4742-96ba-6467e29b39db"), new Guid("2f0c7b75-8934-4101-bef2-c850e42d21de"), new Guid("4354acbc-a32a-4a28-b865-deb49695171f") },
+                    { new Guid("b81a9917-77c0-48c1-8945-86a3db37d3dd"), new Guid("2f0c7b75-8934-4101-bef2-c850e42d21de"), new Guid("d8682aa6-255a-4b31-aeaa-1aff35a8be58") },
+                    { new Guid("a3dd1145-7815-4dbd-8e96-8d8c56a2d2f9"), new Guid("71b1b0a6-7eab-476c-b177-1d37e120184c"), new Guid("d8682aa6-255a-4b31-aeaa-1aff35a8be58") }
                 });
 
             migrationBuilder.CreateIndex(

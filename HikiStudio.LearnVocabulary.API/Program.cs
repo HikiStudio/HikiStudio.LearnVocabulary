@@ -1,3 +1,5 @@
+using HikiStudio.LearnVocabulary.Application.Interfaces;
+using HikiStudio.LearnVocabulary.Application.Services;
 using HikiStudio.LearnVocabulary.Data.EF;
 using HikiStudio.LearnVocabulary.Data.Entities;
 using HikiStudio.LearnVocabulary.Utilities.Constants;
@@ -31,6 +33,11 @@ builder.Services.AddScoped<ClaimsPrincipal>(provider => provider.GetService<IHtt
 builder.Services.AddScoped<UserManager<AppUser>, UserManager<AppUser>>();
 builder.Services.AddScoped<SignInManager<AppUser>, SignInManager<AppUser>>();
 builder.Services.AddScoped<RoleManager<AppRole>, RoleManager<AppRole>>();
+
+//my services
+builder.Services.AddScoped<IAudioClipService, AudioClipService>();
+builder.Services.AddScoped<IVocabularyTypeService, VocabularyTypeService>();
+builder.Services.AddScoped<IVocabularyWordService, VocabularyWordService>();
 
 //IdentityOptions
 builder.Services.Configure<IdentityOptions>(options =>
@@ -105,17 +112,17 @@ builder.Services.AddAuthentication(opt =>
         ClockSkew = System.TimeSpan.Zero,
         IssuerSigningKey = new SymmetricSecurityKey(signingKeyBytes)
     };
-})
-.AddFacebook(options =>
-{
-    options.AppId = "YourFacebookAppId";
-    options.AppSecret = "YourFacebookAppSecret";
-})
-.AddGoogle(options =>
-{
-    options.ClientId = builder.Configuration.GetSection("Authentication:Google:ClientId").Value ?? "";
-    options.ClientSecret = builder.Configuration.GetSection("Authentication:Google:ClientSecret").Value ?? "";
 });
+//.AddFacebook(options =>
+//{
+//    options.AppId = "YourFacebookAppId";
+//    options.AppSecret = "YourFacebookAppSecret";
+//})
+//.AddGoogle(options =>
+//{
+//    options.ClientId = builder.Configuration.GetSection("Authentication:Google:ClientId").Value ?? "";
+//    options.ClientSecret = builder.Configuration.GetSection("Authentication:Google:ClientSecret").Value ?? "";
+//});
 
 var app = builder.Build();
 

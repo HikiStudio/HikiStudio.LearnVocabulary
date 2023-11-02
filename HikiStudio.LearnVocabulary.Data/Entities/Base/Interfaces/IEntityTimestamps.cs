@@ -8,7 +8,7 @@
         /// <summary>
         /// Identifier of the creator.
         /// </summary>
-        public TUser CreatedBy { get; set; }
+        public TUser? CreatedBy { get; set; }
 
         /// <summary>
         /// Date and time of object update (if applicable).

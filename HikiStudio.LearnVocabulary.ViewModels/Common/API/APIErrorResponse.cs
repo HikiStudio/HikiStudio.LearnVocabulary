@@ -4,7 +4,9 @@ namespace HikiStudio.LearnVocabulary.ViewModels.Common.API
 {
     public class APIErrorResponse<TResponse> : APIResponse<TResponse>
     {
-        public Maybe<string[]> ValidationErrors { get; set; }
+        //public Maybe<string[]> ValidationErrors { get; set; }
+
+        public string[]? ValidationErrors { get; set; }
 
         public APIErrorResponse()
         {
@@ -19,9 +21,7 @@ namespace HikiStudio.LearnVocabulary.ViewModels.Common.API
         public APIErrorResponse(string[] validationErrors)
         {
             IsSuccessed = false;
-            Message = Maybe<string>.None;
             ValidationErrors = validationErrors;
-            ResultObj = Maybe<TResponse>.None;
         }
 
         public APIErrorResponse(Exception ex)

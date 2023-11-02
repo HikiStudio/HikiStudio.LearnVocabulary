@@ -17,6 +17,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\HikiStudio.LearnVocabulary.Application\HikiStudio.LearnVocabulary.Application.csproj" />
     <ProjectReference Include="..\HikiStudio.LearnVocabulary.Data\HikiStudio.LearnVocabulary.Data.csproj" />
     <ProjectReference Include="..\HikiStudio.LearnVocabulary.Utilities\HikiStudio.LearnVocabulary.Utilities.csproj" />
   </ItemGroup>

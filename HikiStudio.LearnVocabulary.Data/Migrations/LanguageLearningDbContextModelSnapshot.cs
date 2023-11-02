@@ -75,9 +75,9 @@ namespace HikiStudio.LearnVocabulary.Data.Migrations
                         new
                         {
                             Id = new Guid("e1db1200-1bb6-4156-9da3-135e91d94aba"),
-                            ConcurrencyStamp = "8f6fb116-dad6-4ec2-a7ae-a58f357b40a8",
+                            ConcurrencyStamp = "9831d75a-11cb-47f8-a0f3-2869fd2d4312",
                             CreatedBy = new Guid("0b64f6f0-9f60-45c9-9e7b-f68ccc3fc57f"),
-                            DateCreated = new DateTime(2023, 10, 31, 23, 32, 34, 136, DateTimeKind.Local).AddTicks(725),
+                            DateCreated = new DateTime(2023, 11, 2, 21, 37, 26, 303, DateTimeKind.Local).AddTicks(15),
                             Description = "Administrator Role",
                             IsDeleted = false,
                             Name = "admin",
@@ -86,9 +86,9 @@ namespace HikiStudio.LearnVocabulary.Data.Migrations
                         new
                         {
                             Id = new Guid("c489f858-aabd-4264-96c1-5cdca251d871"),
-                            ConcurrencyStamp = "24469813-1862-456e-8a8b-f69108a2a432",
+                            ConcurrencyStamp = "289b90f1-5da3-44f4-8cd0-bfcc021f0bd6",
                             CreatedBy = new Guid("0b64f6f0-9f60-45c9-9e7b-f68ccc3fc57f"),
-                            DateCreated = new DateTime(2023, 10, 31, 23, 32, 34, 136, DateTimeKind.Local).AddTicks(737),
+                            DateCreated = new DateTime(2023, 11, 2, 21, 37, 26, 303, DateTimeKind.Local).AddTicks(35),
                             Description = "Team Members Role",
                             IsDeleted = false,
                             Name = "teamMembers",
@@ -97,9 +97,9 @@ namespace HikiStudio.LearnVocabulary.Data.Migrations
                         new
                         {
                             Id = new Guid("71b1b0a6-7eab-476c-b177-1d37e120184c"),
-                            ConcurrencyStamp = "81595e06-1ad3-48a4-8a01-c25596886334",
+                            ConcurrencyStamp = "e95bbd76-293c-41a0-8fc4-37e9ccd3e07f",
                             CreatedBy = new Guid("0b64f6f0-9f60-45c9-9e7b-f68ccc3fc57f"),
-                            DateCreated = new DateTime(2023, 10, 31, 23, 32, 34, 136, DateTimeKind.Local).AddTicks(740),
+                            DateCreated = new DateTime(2023, 11, 2, 21, 37, 26, 303, DateTimeKind.Local).AddTicks(39),
                             Description = "Creator Role",
                             IsDeleted = false,
                             Name = "creator",
@@ -108,9 +108,9 @@ namespace HikiStudio.LearnVocabulary.Data.Migrations
                         new
                         {
                             Id = new Guid("2f0c7b75-8934-4101-bef2-c850e42d21de"),
-                            ConcurrencyStamp = "70609af6-946a-493c-8463-4bd52b73b7cf",
+                            ConcurrencyStamp = "dd618d51-ca12-4a5f-9dbe-5972b309707b",
                             CreatedBy = new Guid("0b64f6f0-9f60-45c9-9e7b-f68ccc3fc57f"),
-                            DateCreated = new DateTime(2023, 10, 31, 23, 32, 34, 136, DateTimeKind.Local).AddTicks(753),
+                            DateCreated = new DateTime(2023, 11, 2, 21, 37, 26, 303, DateTimeKind.Local).AddTicks(43),
                             Description = "Reader Role",
                             IsDeleted = false,
                             Name = "reader",
@@ -277,7 +277,7 @@ namespace HikiStudio.LearnVocabulary.Data.Migrations
                             Id = new Guid("0b64f6f0-9f60-45c9-9e7b-f68ccc3fc57f"),
                             AccessFailedCount = 0,
                             AppUserTypeId = 0,
-                            ConcurrencyStamp = "eb6c0c0a-04f9-474e-abf2-9e1a7d1377a8",
+                            ConcurrencyStamp = "9672b76e-3d48-4c42-9a0b-129744242bab",
                             DOB = new DateTime(2001, 10, 8, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             DateCreated = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Email = "tranquangbdhz@gmail.com",
@@ -291,7 +291,7 @@ namespace HikiStudio.LearnVocabulary.Data.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "TRANQUANGBDHZ@GMAIL.COM",
                             NormalizedUserName = "ADMIN",
-                            PasswordHash = "AQAAAAEAACcQAAAAEANfuwAh40QGl0Jl8VDGIjUpXTFOLebWPCfIfAHVqtsYW/M7h/zZXm8b+b3UFqFXEQ==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEC5wd4u3BZ2m5zJrYRwSoxxpe25jfl8VI9sCQVW1gXldw/jG6fijG3VT3y8yIgGLWA==",
                             PhoneNumberConfirmed = false,
                             SecurityStamp = "",
                             TwoFactorEnabled = false,
@@ -303,10 +303,10 @@ namespace HikiStudio.LearnVocabulary.Data.Migrations
                             Id = new Guid("0ae34db7-ea08-42d2-9aef-098efcdd2c1e"),
                             AccessFailedCount = 0,
                             AppUserTypeId = 0,
-                            ConcurrencyStamp = "89962388-a649-4469-a424-0cc84df2ebdf",
+                            ConcurrencyStamp = "9aa2cf71-bf50-42ee-aae7-5eadebc0f9e1",
                             DOB = new DateTime(2000, 5, 8, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             DateCreated = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            DatePasswordChanged = new DateTime(2023, 10, 31, 23, 32, 34, 150, DateTimeKind.Local).AddTicks(835),
+                            DatePasswordChanged = new DateTime(2023, 11, 2, 21, 37, 26, 316, DateTimeKind.Local).AddTicks(7657),
                             Email = "hikistudio@hiki.space",
                             EmailConfirmed = true,
                             FirstName = "Admin",
@@ -318,7 +318,7 @@ namespace HikiStudio.LearnVocabulary.Data.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "HIKISTUDIO@HIKI.SPACE",
                             NormalizedUserName = "HIKISTUDIO",
-                            PasswordHash = "AQAAAAEAACcQAAAAECoBCiI0Blyv4Dd8vKY8ACSdWsb2WqKtdOwpYAFUPyCb8NhFdG5PtD8o4e5K0bLhVw==",
+                            PasswordHash = "AQAAAAEAACcQAAAAENBjDWxlx8ZtIK6jjPnmrk8zOoGv8P+u5abQZTdQUdf0kCxxIAxbSIO07gGfVJD/rw==",
                             PhoneNumberConfirmed = false,
                             SecurityStamp = "",
                             TwoFactorEnabled = false,
@@ -330,10 +330,10 @@ namespace HikiStudio.LearnVocabulary.Data.Migrations
                             Id = new Guid("3e3245cb-bc7b-4c08-ad09-72fbd736fc9a"),
                             AccessFailedCount = 0,
                             AppUserTypeId = 0,
-                            ConcurrencyStamp = "837e1c91-cbb0-4170-9ae0-81e1082149eb",
+                            ConcurrencyStamp = "3dbeec78-0244-4e6d-94e4-ef4c4bad8ca4",
                             DOB = new DateTime(1990, 10, 8, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             DateCreated = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            DatePasswordChanged = new DateTime(2023, 10, 31, 23, 32, 34, 157, DateTimeKind.Local).AddTicks(1745),
+                            DatePasswordChanged = new DateTime(2023, 11, 2, 21, 37, 26, 323, DateTimeKind.Local).AddTicks(6665),
                             Email = "lionelmessi@hiki.space",
                             EmailConfirmed = true,
                             FirstName = "Lionel",
@@ -345,7 +345,7 @@ namespace HikiStudio.LearnVocabulary.Data.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "LIONELMESSI@HIKI.SPACE",
                             NormalizedUserName = "YUKINO",
-                            PasswordHash = "AQAAAAEAACcQAAAAEMMYuRvY7kAW/pD+0VeMSKg6adeadbeYQWSaJoSY7TB+MmS+7A4eNjUkiTHEbqKluQ==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEDLqrGMzLekH6xzR+e5lfBv2UPgZMe9sZD3WzVmJQaYGh82rZF5EOdsZ98GBaiq5eA==",
                             PhoneNumberConfirmed = false,
                             SecurityStamp = "",
                             TwoFactorEnabled = false,
@@ -357,10 +357,10 @@ namespace HikiStudio.LearnVocabulary.Data.Migrations
                             Id = new Guid("d8682aa6-255a-4b31-aeaa-1aff35a8be58"),
                             AccessFailedCount = 0,
                             AppUserTypeId = 0,
-                            ConcurrencyStamp = "f8425a9b-6ea4-498c-bddd-db7d6fc4d898",
+                            ConcurrencyStamp = "341a6481-dec7-4591-955b-8c91fe66dff1",
                             DOB = new DateTime(2001, 10, 8, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             DateCreated = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            DatePasswordChanged = new DateTime(2023, 10, 31, 23, 32, 34, 164, DateTimeKind.Local).AddTicks(770),
+                            DatePasswordChanged = new DateTime(2023, 11, 2, 21, 37, 26, 330, DateTimeKind.Local).AddTicks(5218),
                             Email = "creator@hiki.space",
                             EmailConfirmed = true,
                             FirstName = "Creator",
@@ -372,7 +372,7 @@ namespace HikiStudio.LearnVocabulary.Data.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "CREATOR@HIKI.SPACE",
                             NormalizedUserName = "CREATOR",
-                            PasswordHash = "AQAAAAEAACcQAAAAEAM77gL+0mMdH1a6wIDKbe+JgmF8uJ92XmjyaWBcLhAZopCcXbvJzhihQuR847NnJw==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEFJgyS5aOSv+EMoxzm2wnMBuU+6n2HbwxRswGBIuDlzTKn+McRaA0IlQPUxnE0KgrQ==",
                             PhoneNumberConfirmed = false,
                             SecurityStamp = "",
                             TwoFactorEnabled = false,
@@ -384,10 +384,10 @@ namespace HikiStudio.LearnVocabulary.Data.Migrations
                             Id = new Guid("4354acbc-a32a-4a28-b865-deb49695171f"),
                             AccessFailedCount = 0,
                             AppUserTypeId = 0,
-                            ConcurrencyStamp = "cd7699c5-82ef-489b-aebc-8f10d1c9dd02",
+                            ConcurrencyStamp = "5f5f2f6a-a0c4-4e8a-b63d-515dfb90f71e",
                             DOB = new DateTime(2001, 10, 8, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             DateCreated = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            DatePasswordChanged = new DateTime(2023, 10, 31, 23, 32, 34, 171, DateTimeKind.Local).AddTicks(913),
+                            DatePasswordChanged = new DateTime(2023, 11, 2, 21, 37, 26, 337, DateTimeKind.Local).AddTicks(3629),
                             Email = "reader@hiki.space",
                             EmailConfirmed = true,
                             FirstName = "Reader",
@@ -399,7 +399,7 @@ namespace HikiStudio.LearnVocabulary.Data.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "READER@HIKI.SPACE",
                             NormalizedUserName = "READER",
-                            PasswordHash = "AQAAAAEAACcQAAAAELz7TajTq8i6BcrTcyWhU2+m4gc+x/f30wEqvaBaIcu6q7BBlb8eK21S1AVr7NB3Uw==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEFHae+DnmjlchTjwLao4MMBER79VptmhSMxSfMxjhP+GTROVMub9xNIKcD2ZK+oP5w==",
                             PhoneNumberConfirmed = false,
                             SecurityStamp = "",
                             TwoFactorEnabled = false,
@@ -484,55 +484,55 @@ namespace HikiStudio.LearnVocabulary.Data.Migrations
                         {
                             UserId = new Guid("0b64f6f0-9f60-45c9-9e7b-f68ccc3fc57f"),
                             RoleId = new Guid("e1db1200-1bb6-4156-9da3-135e91d94aba"),
-                            AppUserRoleId = new Guid("9e2f3617-7a5a-4660-9ed6-dc1017381c41")
+                            AppUserRoleId = new Guid("ca714a3b-6500-43b7-a1f6-14de2c84f0e9")
                         },
                         new
                         {
                             UserId = new Guid("0b64f6f0-9f60-45c9-9e7b-f68ccc3fc57f"),
                             RoleId = new Guid("2f0c7b75-8934-4101-bef2-c850e42d21de"),
-                            AppUserRoleId = new Guid("22b1f019-7af2-4ac0-b810-298cefbbb4f8")
+                            AppUserRoleId = new Guid("a6debbc6-bb53-4f57-be91-9eee05499c94")
                         },
                         new
                         {
                             UserId = new Guid("0ae34db7-ea08-42d2-9aef-098efcdd2c1e"),
                             RoleId = new Guid("e1db1200-1bb6-4156-9da3-135e91d94aba"),
-                            AppUserRoleId = new Guid("263fc365-207d-4347-bb13-e49ed7fec927")
+                            AppUserRoleId = new Guid("7467685b-0f44-4352-a9f9-3cae8b60e0b9")
                         },
                         new
                         {
                             UserId = new Guid("0ae34db7-ea08-42d2-9aef-098efcdd2c1e"),
                             RoleId = new Guid("2f0c7b75-8934-4101-bef2-c850e42d21de"),
-                            AppUserRoleId = new Guid("31df2fd3-c12d-40b8-ac73-22564a0cec1b")
+                            AppUserRoleId = new Guid("2cc6a853-6563-4892-8a46-3781969f544a")
                         },
                         new
                         {
                             UserId = new Guid("3e3245cb-bc7b-4c08-ad09-72fbd736fc9a"),
                             RoleId = new Guid("c489f858-aabd-4264-96c1-5cdca251d871"),
-                            AppUserRoleId = new Guid("5c55ea28-de08-4456-a03a-9b920b3dc2fc")
+                            AppUserRoleId = new Guid("8d1de9d9-8903-4783-97cc-7ba128615945")
                         },
                         new
                         {
                             UserId = new Guid("3e3245cb-bc7b-4c08-ad09-72fbd736fc9a"),
                             RoleId = new Guid("2f0c7b75-8934-4101-bef2-c850e42d21de"),
-                            AppUserRoleId = new Guid("2792f28b-4cb8-44eb-8755-b9b06ae125f1")
+                            AppUserRoleId = new Guid("68488130-0ebc-4e51-a602-e010777fbf29")
                         },
                         new
                         {
                             UserId = new Guid("d8682aa6-255a-4b31-aeaa-1aff35a8be58"),
                             RoleId = new Guid("71b1b0a6-7eab-476c-b177-1d37e120184c"),
-                            AppUserRoleId = new Guid("a26b0661-3329-4e1c-b10a-cb00c182f85c")
+                            AppUserRoleId = new Guid("a3dd1145-7815-4dbd-8e96-8d8c56a2d2f9")
                         },
                         new
                         {
                             UserId = new Guid("d8682aa6-255a-4b31-aeaa-1aff35a8be58"),
                             RoleId = new Guid("2f0c7b75-8934-4101-bef2-c850e42d21de"),
-                            AppUserRoleId = new Guid("cdf77322-41a1-4cf5-b2d2-a72862fa4aee")
+                            AppUserRoleId = new Guid("b81a9917-77c0-48c1-8945-86a3db37d3dd")
                         },
                         new
                         {
                             UserId = new Guid("4354acbc-a32a-4a28-b865-deb49695171f"),
                             RoleId = new Guid("2f0c7b75-8934-4101-bef2-c850e42d21de"),
-                            AppUserRoleId = new Guid("bfa5439a-d707-4fdf-9e61-817a55bacb48")
+                            AppUserRoleId = new Guid("a7dc5930-0067-4742-96ba-6467e29b39db")
                         });
                 });
 
@@ -649,7 +649,7 @@ namespace HikiStudio.LearnVocabulary.Data.Migrations
                         {
                             LanguageID = 1,
                             CreatedBy = new Guid("0b64f6f0-9f60-45c9-9e7b-f68ccc3fc57f"),
-                            DateCreated = new DateTime(2023, 10, 31, 23, 32, 34, 171, DateTimeKind.Local).AddTicks(1064),
+                            DateCreated = new DateTime(2023, 11, 2, 21, 37, 26, 337, DateTimeKind.Local).AddTicks(3706),
                             IsDeleted = false,
                             LanguageName = "English"
                         });
@@ -699,7 +699,7 @@ namespace HikiStudio.LearnVocabulary.Data.Migrations
                         {
                             PronunciationTypeID = 1,
                             CreatedBy = new Guid("0b64f6f0-9f60-45c9-9e7b-f68ccc3fc57f"),
-                            DateCreated = new DateTime(2023, 10, 31, 23, 32, 34, 171, DateTimeKind.Local).AddTicks(1114),
+                            DateCreated = new DateTime(2023, 11, 2, 21, 37, 26, 337, DateTimeKind.Local).AddTicks(3757),
                             Description = "",
                             IsDeleted = false,
                             PronunciationTypeName = "Vocal US"
@@ -708,10 +708,10 @@ namespace HikiStudio.LearnVocabulary.Data.Migrations
                         {
                             PronunciationTypeID = 2,
                             CreatedBy = new Guid("0b64f6f0-9f60-45c9-9e7b-f68ccc3fc57f"),
-                            DateCreated = new DateTime(2023, 10, 31, 23, 32, 34, 171, DateTimeKind.Local).AddTicks(1116),
+                            DateCreated = new DateTime(2023, 11, 2, 21, 37, 26, 337, DateTimeKind.Local).AddTicks(3759),
                             Description = "",
                             IsDeleted = false,
-                            PronunciationTypeName = "Vocal US"
+                            PronunciationTypeName = "Vocal UK"
                         });
                 });
 
@@ -755,7 +755,7 @@ namespace HikiStudio.LearnVocabulary.Data.Migrations
                         {
                             VocabularyTypeID = 1,
                             CreatedBy = new Guid("0b64f6f0-9f60-45c9-9e7b-f68ccc3fc57f"),
-                            DateCreated = new DateTime(2023, 10, 31, 23, 32, 34, 171, DateTimeKind.Local).AddTicks(1087),
+                            DateCreated = new DateTime(2023, 11, 2, 21, 37, 26, 337, DateTimeKind.Local).AddTicks(3729),
                             IsDeleted = false,
                             VocabularyTypeName = "900 Vocabulary"
                         },
@@ -763,7 +763,7 @@ namespace HikiStudio.LearnVocabulary.Data.Migrations
                         {
                             VocabularyTypeID = 2,
                             CreatedBy = new Guid("0b64f6f0-9f60-45c9-9e7b-f68ccc3fc57f"),
-                            DateCreated = new DateTime(2023, 10, 31, 23, 32, 34, 171, DateTimeKind.Local).AddTicks(1089),
+                            DateCreated = new DateTime(2023, 11, 2, 21, 37, 26, 337, DateTimeKind.Local).AddTicks(3731),
                             IsDeleted = false,
                             VocabularyTypeName = "Adjective"
                         },
@@ -771,7 +771,7 @@ namespace HikiStudio.LearnVocabulary.Data.Migrations
                         {
                             VocabularyTypeID = 3,
                             CreatedBy = new Guid("0b64f6f0-9f60-45c9-9e7b-f68ccc3fc57f"),
-                            DateCreated = new DateTime(2023, 10, 31, 23, 32, 34, 171, DateTimeKind.Local).AddTicks(1090),
+                            DateCreated = new DateTime(2023, 11, 2, 21, 37, 26, 337, DateTimeKind.Local).AddTicks(3732),
                             IsDeleted = false,
                             VocabularyTypeName = "Adverb"
                         },
@@ -779,7 +779,7 @@ namespace HikiStudio.LearnVocabulary.Data.Migrations
                         {
                             VocabularyTypeID = 4,
                             CreatedBy = new Guid("0b64f6f0-9f60-45c9-9e7b-f68ccc3fc57f"),
-                            DateCreated = new DateTime(2023, 10, 31, 23, 32, 34, 171, DateTimeKind.Local).AddTicks(1092),
+                            DateCreated = new DateTime(2023, 11, 2, 21, 37, 26, 337, DateTimeKind.Local).AddTicks(3734),
                             IsDeleted = false,
                             VocabularyTypeName = "Verb"
                         },
@@ -787,7 +787,7 @@ namespace HikiStudio.LearnVocabulary.Data.Migrations
                         {
                             VocabularyTypeID = 5,
                             CreatedBy = new Guid("0b64f6f0-9f60-45c9-9e7b-f68ccc3fc57f"),
-                            DateCreated = new DateTime(2023, 10, 31, 23, 32, 34, 171, DateTimeKind.Local).AddTicks(1093),
+                            DateCreated = new DateTime(2023, 11, 2, 21, 37, 26, 337, DateTimeKind.Local).AddTicks(3735),
                             IsDeleted = false,
                             VocabularyTypeName = "Reading"
                         },
@@ -795,7 +795,7 @@ namespace HikiStudio.LearnVocabulary.Data.Migrations
                         {
                             VocabularyTypeID = 6,
                             CreatedBy = new Guid("0b64f6f0-9f60-45c9-9e7b-f68ccc3fc57f"),
-                            DateCreated = new DateTime(2023, 10, 31, 23, 32, 34, 171, DateTimeKind.Local).AddTicks(1094),
+                            DateCreated = new DateTime(2023, 11, 2, 21, 37, 26, 337, DateTimeKind.Local).AddTicks(3737),
                             IsDeleted = false,
                             VocabularyTypeName = "Listening"
                         });

@@ -9,7 +9,7 @@ namespace HikiStudio.LearnVocabulary.Data.Entities
     {
         public int VocabularyTypeID { get; set; }
 
-        public string? VocabularyTypeName { get; set; }
+        public string VocabularyTypeName { get; set; } = String.Empty;
 
         
         public List<VocabularyWord>? VocabularyWords { get; set; }

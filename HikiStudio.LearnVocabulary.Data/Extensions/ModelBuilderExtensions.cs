@@ -155,7 +155,7 @@ namespace HikiStudio.LearnVocabulary.Data.Extensions
 
             modelBuilder.Entity<PronunciationType>().HasData(
                 new PronunciationType() { PronunciationTypeID = 1, PronunciationTypeName = "Vocal US", Description = "", CreatedBy = adminId, DateCreated = DateTime.Now, IsDeleted = false },
-                new PronunciationType() { PronunciationTypeID = 2, PronunciationTypeName = "Vocal US", Description = "", CreatedBy = adminId, DateCreated = DateTime.Now, IsDeleted = false });
+                new PronunciationType() { PronunciationTypeID = 2, PronunciationTypeName = "Vocal UK", Description = "", CreatedBy = adminId, DateCreated = DateTime.Now, IsDeleted = false });
         }
     }
 }

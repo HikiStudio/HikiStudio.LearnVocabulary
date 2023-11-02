@@ -21,7 +21,7 @@ namespace HikiStudio.LearnVocabulary.Data.Entities.Base.Entities
         /// <summary>
         /// Gets or sets the user who created the object.
         /// </summary>
-        public virtual TUser CreatedBy { get; set; }
+        public virtual TUser? CreatedBy { get; set; }
 
         /// <summary>
         /// Gets or sets the date and time of object update (if applicable).
