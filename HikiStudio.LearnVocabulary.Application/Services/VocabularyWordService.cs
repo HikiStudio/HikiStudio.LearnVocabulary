@@ -4,9 +4,11 @@ using HikiStudio.LearnVocabulary.Data.Entities;
 using HikiStudio.LearnVocabulary.Utilities.Constants;
 using HikiStudio.LearnVocabulary.ViewModels.AudioClips;
 using HikiStudio.LearnVocabulary.ViewModels.Common.API;
+using HikiStudio.LearnVocabulary.ViewModels.Common.Pages;
 using HikiStudio.LearnVocabulary.ViewModels.VocabularyWords;
 using HikiStudio.LearnVocabulary.ViewModels.VocabularyWords.DataRequest;
 using Microsoft.EntityFrameworkCore;
+using System.Linq.Dynamic.Core;
 
 namespace HikiStudio.LearnVocabulary.Application.Services
 {
@@ -44,6 +46,7 @@ namespace HikiStudio.LearnVocabulary.Application.Services
                 Definition = request.Definition.Trim(),
                 Pronunciation = request.Pronunciation != null ? request.Pronunciation.Trim() : null,
                 ExampleSentence = request.ExampleSentence != null ? request.ExampleSentence.Trim() : null,
+                ExampleSentenceMeaning = request.ExampleSentenceMeaning != null ? request.ExampleSentenceMeaning.Trim() : null,
                 Synonyms = request.Synonyms,
                 Antonyms = request.Antonyms,
                 CreatedBy = SystemConstants.AppSettings.CreateByDefault,
@@ -88,47 +91,120 @@ namespace HikiStudio.LearnVocabulary.Application.Services
             return new APISuccessResponse<bool>() { Message = MessageConstants.DeleteSuccess(nameof(VocabularyWord)) };
         }
 
-        public async Task<APIResponse<List<VocabularyWordViewModel>>> GetAllVocabylaryWordAsync(int? vocabularyTypeID)
+        public async Task<List<VocabularyWordViewModel>> GetAllVocabularyWordAsync(int? vocabularyTypeID)
         {
             IQueryable<VocabularyWord> query = _context.VocabularyWords.Include(vw => vw.AudioClips);
 
-            if (vocabularyTypeID.HasValue)
+            if (vocabularyTypeID.HasValue && vocabularyTypeID != 0)
             {
                 query = query.Where(vw => vw.VocabularyTypeID == vocabularyTypeID.Value);
             }
 
-            var vocabularyWords = await query.ToListAsync();
-
-            if (vocabularyWords == null)
-            {
-                return new APIErrorResponse<List<VocabularyWordViewModel>>()
+            var vocabularyWordViewModels = await query
+                .Select(vw => new VocabularyWordViewModel
                 {
-                    Message = MessageConstants.ObjectNotFound(nameof(VocabularyWord))
-                };
+                    VocabularyWordID = vw.VocabularyWordID,
+                    VocabularyTypeID = vw.VocabularyTypeID,
+                    LanguageID = vw.LanguageID,
+                    Word = vw.Word,
+                    Definition = vw.Definition,
+                    Pronunciation = vw.Pronunciation,
+                    ExampleSentence = vw.ExampleSentence,
+                    Synonyms = vw.Synonyms,
+                    Antonyms = vw.Antonyms,
+                    ImageURL = vw.ImageURL,
+                    DateCreated = vw.DateCreated,
+                    AudioClips = vw.AudioClips == null ? null : vw.AudioClips.Select(ac => new AudioClipViewModel
+                    {
+                        AudioClipID = ac.AudioClipID,
+                        VocabularyWordID = ac.VocabularyWordID,
+                        PronunciationTypeID = ac.PronunciationTypeID,
+                        AudioURL = ac.AudioURL
+                    }).ToList()
+                })
+                .ToListAsync();
+
+            return vocabularyWordViewModels;
+        }
+
+        public async Task<PagedResponse<VocabularyWordViewModel>> GetPagingVocabularyWordAsync(PagedRequest request, int? vocabularyTypeID)
+        {
+            IQueryable<VocabularyWord> query = _context.VocabularyWords.Include(vw => vw.AudioClips);
+
+            if (vocabularyTypeID.HasValue && vocabularyTypeID != 0)
+            {
+                query = query.Where(vw => vw.VocabularyTypeID == vocabularyTypeID.Value);
             }
 
-            var vocabularyWordViewModels = vocabularyWords.Select(vw => new VocabularyWordViewModel
+            if (!string.IsNullOrEmpty(request.SearchValue))
             {
-                VocabularyWordID = vw.VocabularyWordID,
-                VocabularyTypeID = vw.VocabularyTypeID,
-                LanguageID = vw.LanguageID,
-                Word = vw.Word,
-                Definition = vw.Definition,
-                Pronunciation = vw.Pronunciation,
-                ExampleSentence = vw.ExampleSentence,
-                Synonyms = vw.Synonyms,
-                Antonyms = vw.Antonyms,
-                ImageURL = vw.ImageURL,
-                AudioClips = vw.AudioClips == null ? null : vw.AudioClips.Select(ac => new AudioClipViewModel
-                {
-                    AudioClipID = ac.AudioClipID,
-                    VocabularyWordID = ac.VocabularyWordID,
-                    PronunciationTypeID = ac.PronunciationTypeID,
-                    AudioURL = ac.AudioURL
-                }).ToList()
-            }).ToList();
+                query = query.Where(vw => vw.Word.ToLower().Contains(request.SearchValue.ToLower()) || vw.Definition.ToLower().Contains(request.SearchValue.ToLower()));
+            }
 
-            return new APISuccessResponse<List<VocabularyWordViewModel>>() { ResultObj = vocabularyWordViewModels };
+            query = query.OrderBy($"{request.SortColumn} {request.SortColumnDirection}");
+
+            var totalRecords = await query.CountAsync();
+            var vocabularyWordViewModels = await query
+                .Skip(request.Skip)
+                .Take(request.PageSize)
+                .Select(vw => new VocabularyWordViewModel
+                {
+                    VocabularyWordID = vw.VocabularyWordID,
+                    VocabularyTypeID = vw.VocabularyTypeID,
+                    LanguageID = vw.LanguageID,
+                    Word = vw.Word,
+                    Definition = vw.Definition,
+                    Pronunciation = vw.Pronunciation,
+                    ExampleSentence = vw.ExampleSentence,
+                    ExampleSentenceMeaning = vw.ExampleSentenceMeaning,
+                    Synonyms = vw.Synonyms,
+                    Antonyms = vw.Antonyms,
+                    ImageURL = vw.ImageURL,
+                    DateCreated = vw.DateCreated,
+                    AudioClips = vw.AudioClips == null ? null : vw.AudioClips.Select(ac => new AudioClipViewModel
+                    {
+                        AudioClipID = ac.AudioClipID,
+                        VocabularyWordID = ac.VocabularyWordID,
+                        PronunciationTypeID = ac.PronunciationTypeID,
+                        AudioURL = ac.AudioURL
+                    }).ToList()
+                })
+                .ToListAsync();
+
+            var pagedResponse = new PagedResponse<VocabularyWordViewModel>
+            {
+                Draw = request.Draw,
+                RecordsFiltered = totalRecords,
+                RecordsTotal = totalRecords,
+                Data = vocabularyWordViewModels
+            };
+
+            return pagedResponse;
+        }
+
+        public async Task<APIResponse<VocabularyWordViewModel>> GetVocabularyWordByVocabularyWordIDAsync(long vocabularyWordID)
+        {
+            var vocabularyWord = await _context.VocabularyWords.FirstOrDefaultAsync(x => x.VocabularyWordID == vocabularyWordID);
+            if (vocabularyWord is null)
+                return new APIErrorResponse<VocabularyWordViewModel>() { Message = MessageConstants.ObjectNotFound(nameof(VocabularyWord)) };
+
+            var vocabularyWordViewModel = new VocabularyWordViewModel()
+            {
+                VocabularyWordID = vocabularyWord.VocabularyWordID,
+                VocabularyTypeID = vocabularyWord.VocabularyTypeID,
+                Word = vocabularyWord.Word,
+                Definition = vocabularyWord.Definition,
+                Pronunciation = vocabularyWord.Pronunciation,
+                Antonyms = vocabularyWord.Antonyms,
+                Synonyms = vocabularyWord.Synonyms,
+                DateCreated = vocabularyWord.DateCreated,
+                ExampleSentence = vocabularyWord.ExampleSentence,
+                ExampleSentenceMeaning = vocabularyWord.ExampleSentenceMeaning,
+                ImageURL = vocabularyWord.ImageURL,
+                LanguageID = vocabularyWord.LanguageID
+            };
+
+            return new APISuccessResponse<VocabularyWordViewModel>() { ResultObj = vocabularyWordViewModel };
         }
 
         public async Task<APIResponse<bool>> UpdateVocabularyWordAsync(UpdateVocabularyWordRequest request, long vocabularyWordID)
@@ -154,6 +230,7 @@ namespace HikiStudio.LearnVocabulary.Application.Services
             vocabularyWord.Definition = request.Definition.Trim();
             vocabularyWord.Pronunciation = request.Pronunciation != null ? request.Pronunciation.Trim() : null;
             vocabularyWord.ExampleSentence = request.ExampleSentence != null ? request.ExampleSentence.Trim() : null;
+            vocabularyWord.ExampleSentenceMeaning = request.ExampleSentenceMeaning != null ? request.ExampleSentenceMeaning.Trim() : null;
             vocabularyWord.Synonyms = request.Synonyms;
             vocabularyWord.Antonyms = request.Antonyms;
             vocabularyWord.ImageURL = request.ImageURL;

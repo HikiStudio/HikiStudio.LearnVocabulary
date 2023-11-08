@@ -10,6 +10,6 @@ namespace HikiStudio.LearnVocabulary.ViewModels.Common.Pages
 
         public int RecordsTotal { get; set; }
 
-        public Maybe<List<T>> Data { get; set; }
+        public List<T>? Data { get; set; }
     }
 }

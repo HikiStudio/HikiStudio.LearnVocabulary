@@ -33,6 +33,7 @@ namespace HikiStudio.LearnVocabulary.Data.EF
             modelBuilder.ApplyConfiguration(new PronunciationTypeConfiguration());
             modelBuilder.ApplyConfiguration(new VocabularyWordConfiguration());
             modelBuilder.ApplyConfiguration(new AudioClipConfiguration());
+            modelBuilder.ApplyConfiguration(new VocabularyLearningLogConfiguration());
 
             //
             modelBuilder.Seed();
@@ -50,6 +51,13 @@ namespace HikiStudio.LearnVocabulary.Data.EF
 
         public DbSet<Language> Languages { get; set; }
 
+        public DbSet<VocabularyLearningLog> VocabularyLearningLogs { get; set; }
+
+        public DbSet<Course> Courses { get; set; }
+
+        public DbSet<CourseLearningLog> CourseLearningLogs { get; set; }
+
+        public DbSet<CourseInVocabularyWord> CourseInVocabularyWords { get; set; }
 
     }
 }

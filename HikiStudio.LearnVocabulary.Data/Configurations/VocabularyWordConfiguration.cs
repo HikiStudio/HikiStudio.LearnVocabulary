@@ -33,6 +33,8 @@ namespace HikiStudio.LearnVocabulary.Data.Configurations
 
             builder.Property(x => x.ExampleSentence).IsRequired(false).HasMaxLength(1000);
 
+            builder.Property(x => x.ExampleSentenceMeaning).IsRequired(false).HasMaxLength(1000);
+
             builder.Property(x => x.Synonyms).IsRequired(false).HasMaxLength(500);
 
             builder.Property(x => x.Antonyms).IsRequired(false).HasMaxLength(500);

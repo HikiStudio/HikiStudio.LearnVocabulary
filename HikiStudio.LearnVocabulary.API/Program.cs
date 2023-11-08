@@ -35,9 +35,16 @@ builder.Services.AddScoped<SignInManager<AppUser>, SignInManager<AppUser>>();
 builder.Services.AddScoped<RoleManager<AppRole>, RoleManager<AppRole>>();
 
 //my services
+builder.Services.AddScoped<IMp3Service, Mp3Service>();
+
 builder.Services.AddScoped<IAudioClipService, AudioClipService>();
 builder.Services.AddScoped<IVocabularyTypeService, VocabularyTypeService>();
 builder.Services.AddScoped<IVocabularyWordService, VocabularyWordService>();
+builder.Services.AddScoped<IVocabularyLearningLogService, VocabularyLearningLogService>();
+
+builder.Services.AddScoped<IVocabularyInfoService, VocabularyInfoService>();
+
+builder.Services.AddScoped<ITempVocabularyWordService, TempVocabularyWordService>();
 
 //IdentityOptions
 builder.Services.Configure<IdentityOptions>(options =>

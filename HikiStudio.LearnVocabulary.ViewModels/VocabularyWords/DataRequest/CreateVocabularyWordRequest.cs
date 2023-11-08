@@ -12,6 +12,8 @@
 
         public string? ExampleSentence { get; set; }
 
+        public string? ExampleSentenceMeaning {  get; set; }
+
         public string? Synonyms { get; set; }
 
         public string? Antonyms { get; set; }

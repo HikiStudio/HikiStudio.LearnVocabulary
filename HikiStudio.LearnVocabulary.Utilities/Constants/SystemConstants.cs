@@ -4,6 +4,8 @@
     {
         public class AppSettings
         {
+            public const string BaseAddress = "BaseAddress";
+
             public const string MainConnectionString = "LanguageLearningDB";
 
             /// <summary>

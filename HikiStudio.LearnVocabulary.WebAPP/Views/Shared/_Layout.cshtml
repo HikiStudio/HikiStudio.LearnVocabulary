@@ -1,0 +1,157 @@
+﻿<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>HikiStudio - @ViewData["Title"]</title>
+    <link rel="shortcut icon" type="image/png" href="~/assets/images/logos/favicon.png" />
+    <link rel="stylesheet" href="~/assets/css/styles.min.css" />
+    <link href="~/css/style.css" rel="stylesheet" />
+    @RenderSection("Header", false)
+</head>
+
+<body>
+    <!--  Body Wrapper -->
+    <div class="page-wrapper" id="main-wrapper" data-layout="vertical" data-navbarbg="skin6" data-sidebartype="full"
+         data-sidebar-position="fixed" data-header-position="fixed">
+        <!-- Sidebar Start -->
+        <partial name="PartialViews/_SideBar" />
+        <!--  Sidebar End -->
+
+        <!--  Main wrapper -->
+        <div class="body-wrapper">
+            <!--  Header Start -->
+            <partial name="PartialViews/_Header" />
+            <!--  Header End -->
+            <div class="container-fluid" style="position: relative;">
+                <!-- Content -->
+                @RenderBody()
+                <!-- End Content -->
+
+                <div class="fireworks"></div>
+            </div>
+        </div>
+
+        <partial name="PartialViews/_Toast" />
+    </div>
+    <script src="~/assets/libs/jquery/dist/jquery.min.js"></script>
+    <script src="~/assets/libs/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/assets/js/sidebarmenu.js"></script>
+    <script src="~/assets/js/app.min.js"></script>
+    @* <script src="~/assets/libs/apexcharts/dist/apexcharts.min.js"></script>
+    <script src="~/assets/libs/simplebar/dist/simplebar.js"></script> *@
+    @* <script src="~/assets/js/dashboard.js"></script>
+    <script src="~/assets/js/dashboard.js"></script> *@
+    <script src="~/js/common.js"></script>
+
+    <script>
+        let timerData = {
+            seconds: 0,
+            minutes: 0,
+            hours: 0,
+            currentDate: getCurrentDate()
+        };
+
+        function updateTimer() {
+            timerData.seconds++;
+            if (timerData.seconds === 60) {
+                timerData.seconds = 0;
+                timerData.minutes++;
+                if (timerData.minutes === 60) {
+                    timerData.minutes = 0;
+                    timerData.hours++;
+                }
+            }
+            updateDisplay();
+        }
+
+        function updateDisplay() {
+            const display = $("#display-clock");
+            display.text(
+                (timerData.hours < 10 ? "0" : "") + timerData.hours + ":" +
+                (timerData.minutes < 10 ? "0" : "") + timerData.minutes + ":" +
+                (timerData.seconds < 10 ? "0" : "") + timerData.seconds
+            );
+        }
+
+        function saveToLocalStorage() {
+            timerData.currentDate = getCurrentDate();
+            localStorage.setItem("timerData", JSON.stringify(timerData));
+        }
+
+        function loadFromLocalStorage() {
+            const savedData = localStorage.getItem("timerData");
+            if (savedData) {
+                timerData = JSON.parse(savedData);
+                updateDisplay();
+            }
+        }
+
+        function getCurrentDate() {
+            const currentDate = new Date();
+            return currentDate.toDateString();
+        }
+
+        function readVocabularyLearningLog() {
+            let result = { "hours": 0, "minutes": 0, "seconds": 0, "currentDate": null }
+            $.ajax({
+                method: "GET",
+                async: false,
+                url: `${URLServer}/api/vocabulary-learning-logs/read`,
+            })
+                .done(function (response) {
+                    if (response.isSuccessed === true) {
+                        result.hours = response.resultObj.hours;
+                        result.minutes = response.resultObj.minutes;
+                        result.seconds = response.resultObj.seconds;
+                    }
+                    else {
+                        ShowToastError(response.message);
+                    }
+                })
+                .fail(function (jqXHR, textStatus, errorThrown) {
+                    ShowToastError(jqXHR.responseJSON.message);
+                });
+
+            return result;
+        }
+
+        function writeVocabularyLearningLog() {
+            let request = { "hours": timerData.hours, "minutes": timerData.minutes, "seconds": timerData.seconds }
+            $.ajax({
+                method: "POST",
+                url: `${URLServer}/api/vocabulary-learning-logs/write`,
+                data: JSON.stringify(request),
+                headers: {
+                    "Content-Type": "application/json;",
+                },
+                processData: false,
+                contentType: false,
+                datatype: 'json',
+            })
+                .done(function (response) {
+                })
+                .fail(function (jqXHR, textStatus, errorThrown) {
+                    ShowToastError(jqXHR.responseJSON.message);
+                });
+        }
+
+        timerData = readVocabularyLearningLog();
+
+        saveToLocalStorage();
+
+        loadFromLocalStorage();
+
+        setInterval(updateTimer, 1000);
+
+        window.addEventListener("beforeunload", function () {
+            saveToLocalStorage();
+            writeVocabularyLearningLog();
+        });
+    </script>
+    @RenderSection("Footer", required: false)
+</body>
+
+</html>
+

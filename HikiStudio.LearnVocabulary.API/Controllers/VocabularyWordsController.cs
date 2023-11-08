@@ -1,6 +1,7 @@
 ﻿using HikiStudio.LearnVocabulary.Application.Interfaces;
 using HikiStudio.LearnVocabulary.Utilities.Constants;
 using HikiStudio.LearnVocabulary.ViewModels.Common.API;
+using HikiStudio.LearnVocabulary.ViewModels.Common.Pages;
 using HikiStudio.LearnVocabulary.ViewModels.VocabularyWords.DataRequest;
 using Microsoft.AspNetCore.Mvc;
 
@@ -12,18 +13,45 @@ namespace HikiStudio.LearnVocabulary.API.Controllers
     {
         private readonly IVocabularyWordService _vocabularyWordService;
 
-        public VocabularyWordsController(IVocabularyWordService vocabularyWordService)
+        private readonly ITempVocabularyWordService _tempVocabularyWordService;
+
+        public VocabularyWordsController(IVocabularyWordService vocabularyWordService, ITempVocabularyWordService tempVocabularyWordService)
         {
             _vocabularyWordService = vocabularyWordService;
+            _tempVocabularyWordService = tempVocabularyWordService;
         }
 
-        [HttpGet("get-all")]
-        public async Task<IActionResult> GetAllVocabylaryWord([FromQuery] int? vocabularyTypeID = null)
+        //[HttpGet("save")]
+        //public async Task<IActionResult> Save()
+        //{
+        //    var result = await _tempVocabularyWordService.SaveDataTempToDB();
+
+        //    return Ok(result);
+        //}
+
+        [HttpPost("get-paging-vocabulary-words/{vocabularyTypeID?}")]
+        public async Task<IActionResult> GetPagingVocabularyWord([FromBody] PagedRequest request, int? vocabularyTypeID)
         {
-            var result = await _vocabularyWordService.GetAllVocabylaryWordAsync(vocabularyTypeID);
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+
+            var result = await _vocabularyWordService.GetPagingVocabularyWordAsync(request, vocabularyTypeID);
             return Ok(result);
         }
 
+        [HttpGet("get-all-vocabulary-words/{vocabularyTypeID?}")]
+        public async Task<IActionResult> GetAllVocabularyWord(int? vocabularyTypeID)
+        {
+            var result = await _vocabularyWordService.GetAllVocabularyWordAsync(vocabularyTypeID);
+            return Ok(result);
+        }
+
+        [HttpGet("get-vocabulary-word-by-vocabulary-word-id/{vocabularyWordID?}")]
+        public async Task<IActionResult> GetVocabularyWordByVocabularyWordID(int vocabularyWordID)
+        {
+            var result = await _vocabularyWordService.GetVocabularyWordByVocabularyWordIDAsync(vocabularyWordID);
+            return Ok(result);
+        }
 
         [HttpPost("create")]
         public async Task<IActionResult> CreateVocabularyWord([FromBody] CreateVocabularyWordRequest request)
