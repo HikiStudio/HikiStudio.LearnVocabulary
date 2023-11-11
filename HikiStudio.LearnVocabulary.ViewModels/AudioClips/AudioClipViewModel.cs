@@ -2,7 +2,7 @@
 
 namespace HikiStudio.LearnVocabulary.ViewModels.AudioClips
 {
-    public class AudioClipViewModel : BaseViewModel<Guid>
+    public class AudioClipViewModel
     {
         public long AudioClipID { get; set; }
 

@@ -1,3 +1,4 @@
+using HikiStudio.LearnVocabulary.APIIntegration;
 using HikiStudio.LearnVocabulary.APIIntegration.Interfaces;
 using HikiStudio.LearnVocabulary.APIIntegration.Services;
 
@@ -19,6 +20,10 @@ builder.Services.AddScoped<IMp3APIClient, Mp3APIClient>();
 builder.Services.AddScoped<IVocabularyTypeAPIClient, VocabularyTypeAPIClient>();
 builder.Services.AddScoped<IVocabularyWordAPIClient, VocabularyWordAPIClient>();
 builder.Services.AddScoped<IVocabularyLearningLogAPIClient, VocabularyLearningLogAPIClient>();
+builder.Services.AddScoped<ICourseAPIClient, CourseAPIClient>();
+builder.Services.AddScoped<IFavouriteCourseAPIClient, FavouriteCourseAPIClient>();
+builder.Services.AddScoped<ICourseLearningLogAPIClient, CourseLearningLogAPIClient>();
+
 
 builder.Services.AddRazorPages();
 

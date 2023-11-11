@@ -8,7 +8,7 @@ namespace HikiStudio.LearnVocabulary.Data.Entities
 
         public int CourseID { get; set; }
 
-        public int VocabularyWordID { get; set; }
+        public long VocabularyWordID { get; set; }
 
 
         public Course? Course { get; set; }

@@ -21,13 +21,15 @@ namespace HikiStudio.LearnVocabulary.API.Controllers
             _tempVocabularyWordService = tempVocabularyWordService;
         }
 
-        //[HttpGet("save")]
-        //public async Task<IActionResult> Save()
-        //{
-        //    var result = await _tempVocabularyWordService.SaveDataTempToDB();
+        [HttpGet("save")]
+        public async Task<IActionResult> Save()
+        {
+            //var result = await _tempVocabularyWordService.SaveDataTempToDB();
 
-        //    return Ok(result);
-        //}
+            //return Ok(result);
+
+            return Ok();
+        }
 
         [HttpPost("get-paging-vocabulary-words/{vocabularyTypeID?}")]
         public async Task<IActionResult> GetPagingVocabularyWord([FromBody] PagedRequest request, int? vocabularyTypeID)
@@ -50,6 +52,13 @@ namespace HikiStudio.LearnVocabulary.API.Controllers
         public async Task<IActionResult> GetVocabularyWordByVocabularyWordID(int vocabularyWordID)
         {
             var result = await _vocabularyWordService.GetVocabularyWordByVocabularyWordIDAsync(vocabularyWordID);
+            return Ok(result);
+        }
+
+        [HttpGet("get-vocabulary-word-by-course-id/{courseID}")]
+        public async Task<IActionResult> GetVocabularyWordByCourseID(int courseID)
+        {
+            var result = await _vocabularyWordService.GetVocabularyWordByCourseIDAsync(courseID);
             return Ok(result);
         }
 

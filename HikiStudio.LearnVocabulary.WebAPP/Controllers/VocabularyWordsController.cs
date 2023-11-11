@@ -85,6 +85,13 @@ namespace HikiStudio.LearnVocabulary.WebAPP.Controllers
             return Ok(result);
         }
 
+        [HttpGet("get-vocabulary-word-by-course-id/{courseID}")]
+        public async Task<IActionResult> GetVocabularyWordByCourseID(int courseID)
+        {
+            var result = await _vocabularyWordAPIClient.GetVocabularyWordByCourseIDAsync(courseID);
+            return Ok(result);
+        }
+
         [HttpPost("create-vocabulary-word")]
         public async Task<IActionResult> CreateVocabularyWord([FromBody] CreateVocabularyWordRequest request)
         {

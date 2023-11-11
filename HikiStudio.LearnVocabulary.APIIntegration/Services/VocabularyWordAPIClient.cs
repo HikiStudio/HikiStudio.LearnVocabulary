@@ -1,5 +1,4 @@
-﻿using CSharpFunctionalExtensions;
-using HikiStudio.LearnVocabulary.APIIntegration.Interfaces;
+﻿using HikiStudio.LearnVocabulary.APIIntegration.Interfaces;
 using HikiStudio.LearnVocabulary.ViewModels.Common.API;
 using HikiStudio.LearnVocabulary.ViewModels.Common.Pages;
 using HikiStudio.LearnVocabulary.ViewModels.VocabularyWords;
@@ -33,6 +32,11 @@ namespace HikiStudio.LearnVocabulary.APIIntegration.Services
         public async Task<PagedResponse<VocabularyWordViewModel>> GetPagingVocabularyWordAsync(PagedRequest request, int? vocabularyTypeID)
         {
             return await PostAsync<PagedResponse<VocabularyWordViewModel>, PagedRequest>(request, $"/api/vocabulary-words/get-paging-vocabulary-words?vocabularyTypeID={vocabularyTypeID}");
+        }
+
+        public async Task<List<VocabularyWordViewModel>> GetVocabularyWordByCourseIDAsync(int courseID)
+        {
+            return await GetAsync<List<VocabularyWordViewModel>>($"/api/vocabulary-words/get-vocabulary-word-by-course-id/{courseID}");
         }
 
         public async Task<APIResponse<VocabularyWordViewModel>> GetVocabularyWordByVocabularyWordIDAsync(long vocabularyWordID)

@@ -14,6 +14,7 @@ namespace HikiStudio.LearnVocabulary.Data.Entities
 
         public double Score { get; set; }
 
+
         public Course? Course { get; set; }
     }
 }

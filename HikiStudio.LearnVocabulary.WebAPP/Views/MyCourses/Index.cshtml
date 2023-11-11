@@ -1,0 +1,119 @@
+﻿@using HikiStudio.LearnVocabulary.ViewModels.Courses;
+
+@{
+    ViewData["Title"] = "My Courses";
+
+    var courses = ViewData["Courses"] as List<CourseViewModel>;
+}
+
+@section Header{
+    <link href="~/assets/extensions/toastify-js/src/toastify.css" rel="stylesheet" />
+    <link href="~/assets/extensions/datatables.net-bs5/css/dataTables.bootstrap5.min.css" rel="stylesheet" />
+    <link href="~/assets/extensions/datatables.net-bs5/css/select.bootstrap5.min.css" rel="stylesheet" />
+    <link href="~/assets/extensions/datatables.net-bs5/css/jquery.datatables.min.css" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" rel="stylesheet">
+
+    <script src="~/assets/extensions/font-awesome/all.min.js"></script>
+}
+
+@functions {
+    public string GetRandomImageUrl()
+    {
+        string[] imageUrls =
+        {
+            "../assets/images/default.jpg",
+            "../assets/images/1.jpg",
+            "../assets/images/2.jpg",
+            "../assets/images/3.jpg",
+            "../assets/images/4.jpg",
+            "../assets/images/5.jpg",
+            "../assets/images/6.jpg",
+            "../assets/images/7.jpg",
+            "../assets/images/8.jpg",
+    };
+
+        Random random = new Random();
+        int index = random.Next(imageUrls.Length);
+
+        return imageUrls[index];
+    }
+}
+
+<div class="row" style="padding: 0px 12px; display: none;">
+    <div class="card w-100">
+        <div class="card-body" style="padding: 15px 0px;">
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label for="word" class="form-label">Course Name</label>
+                        <input type="text" id="word" autofocus name="word" class="form-control" placeholder="Word" />
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label for="word" class="form-label">Course Type</label>
+                        <input type="text" id="word" autofocus name="word" class="form-control" placeholder="Word" />
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label for="word" class="form-label">Date Created</label>
+                        <input type="text" id="word" autofocus name="date-created" class="form-control" placeholder="Word" />
+                    </div>
+                </div>
+            </div>
+            <div class="row" style="padding-top: 10px; display: flex; justify-content: center;">
+                <button type="submit" id="submit-create-vocabulary-word" style="width: 110px;" class="btn btn-primary">
+                    <i class="fa-solid fa-magnifying-glass"></i>&nbsp;&nbsp;&nbsp;
+                    Search
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    @if (courses != null)
+    {
+        @foreach (var item in courses)
+        {
+            <div class="col-sm-6 col-xl-3">
+                <div class="card card-course overflow-hidden rounded-2">
+                    <div class="position-relative">
+                        <span class="course-date-created badge bg-primary rounded-3 fw-semibold">@item.DateCreated.ToString("dd/MM/yyyy")</span>
+                        <img src="@GetRandomImageUrl()" class="card-img-top rounded-0" alt="...">
+                        @if (item.IsFavouriteCourse)
+                        {
+                            <a id="course-favourite-@item.CourseID" href="javascript:void(0)" onclick='changeFavouriteCourse(@item.CourseID)' style="background: brown;"
+                               class="rounded-circle p-2 text-white d-inline-flex position-absolute bottom-0 end-0 mb-n3 me-3">
+                                <i id="course-favourite-icon-@item.CourseID" class="fa-solid fa-star" style="color: #fff700;"></i>
+                            </a>
+                        }
+                        else
+                        {
+                            <a id="course-favourite-@item.CourseID" href="javascript:void(0)" onclick='changeFavouriteCourse(@item.CourseID)' style="background: #c8c0c0;"
+                               class="rounded-circle p-2 text-white d-inline-flex position-absolute bottom-0 end-0 mb-n3 me-3">
+                                <i id="course-favourite-icon-@item.CourseID" class="fa-solid fa-star" style="color: white;"></i>
+                            </a>
+                        }
+                    </div>
+                    <div class="card-body card-footer">
+                        <a asp-action="Index" asp-controller="VocabularyQuizzes" asp-route-courseID="@item.CourseID">
+                            <h6 class="fw-semibold">@item.CourseName</h6>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        }
+    }
+</div>
+
+
+@section Footer{
+    <script src="~/assets/extensions/toastify-js/src/toastify.js"></script>
+    <script src="~/assets/extensions/jquery/jquery.min.js"></script>
+    <script src="~/assets/extensions/datatables/datatables.min.js"></script>
+    <script src="~/assets/extensions/datatables/dataTables.select.min.js"></script>
+    <script src="~/assets/extensions/jquery-validate/jquery.validate.min.js"></script>
+    <script src="~/js/pages/my-courses.js"></script>
+}

@@ -13,6 +13,8 @@ namespace HikiStudio.LearnVocabulary.APIIntegration.Interfaces
 
         Task<APIResponse<VocabularyWordViewModel>> GetVocabularyWordByVocabularyWordIDAsync(long vocabularyWordID);
 
+        Task<List<VocabularyWordViewModel>> GetVocabularyWordByCourseIDAsync(int courseID);
+
         Task<APIResponse<bool>> CreateVocabularyWordAsync(CreateVocabularyWordRequest request);
 
         Task<APIResponse<bool>> UpdateVocabularyWordAsync(UpdateVocabularyWordRequest request, long vocabularyWordID);

@@ -34,20 +34,39 @@ function setRangeVocabularyIndex(vocabularyWords) {
 }
 
 function getAllVocabularyWord(vocabularyTypeID) {
-    let result;
-    $.ajax({
-        method: "GET",
-        async: false,
-        url: `/vocabulary-words/get-all-vocabulary-words/${vocabularyTypeID}`,
-    })
-        .done(function (response) {
-            result = response;
-        })
-        .fail(function (jqXHR, textStatus, errorThrown) {
-            ShowToastError(jqXHR.responseJSON.message);
-        });
+    let courseID = $("#hdCourseID").val();
 
-    return result;
+    if (courseID === null || courseID === undefined || courseID === "") {
+        let result;
+        $.ajax({
+            method: "GET",
+            async: false,
+            url: `/vocabulary-words/get-all-vocabulary-words/${vocabularyTypeID}`,
+        })
+            .done(function (response) {
+                result = response;
+            })
+            .fail(function (jqXHR, textStatus, errorThrown) {
+                ShowToastError(jqXHR.responseJSON.message);
+            });
+
+        return result;
+    }
+    else {
+        let result;
+        $.ajax({
+            method: "GET",
+            async: false,
+            url: `/vocabulary-words/get-vocabulary-word-by-course-id/${courseID}`,
+        })
+            .done(function (response) {
+                result = response;
+            })
+            .fail(function (jqXHR, textStatus, errorThrown) {
+                ShowToastError(jqXHR.responseJSON.message);
+            });
+        return result;
+    }
 }
 
 function randomOptionQuizType(quizTypes) {
@@ -229,6 +248,18 @@ function renderQuizTypes() {
         let vocabularyWordsChooseAnswer = initVocabularyWordChooseAnswer();
         renderQuizTypeChooseAnswer(vocabularyWordsChooseAnswer);
     }
+
+    let numberOfCorrectAnswers = parseInt($("#number-of-correct-answers").text());
+    let numberOfIncorrectAnswers = parseInt($("#number-of-incorrect-answers").text());
+    if (quizVocabularyWords.length === 0 && (currentItemQuizVocabularyWord === null || currentItemQuizVocabularyWord === undefined)) {
+        if (numberOfCorrectAnswers > 0 || numberOfIncorrectAnswers > 0) {
+            createCourseLearningLog(numberOfCorrectAnswers, numberOfIncorrectAnswers)
+        }
+
+        if (numberOfCorrectAnswers > 0 && numberOfIncorrectAnswers === 0) {
+            openFireworks();
+        }
+    }
 }
 
 $(document).ready(function () {
@@ -254,7 +285,6 @@ $("#start-quiz").on("click", function () {
     numberOfIncorrectAnswers = 0;
     setNumberOfIncorrectAnswers();
 
-
     if (vocabularyWordHistories.length > 0) {
         vocabularyWordHistories = [];
         vocabularyWordHistoriesDatatable.clear();
@@ -262,7 +292,6 @@ $("#start-quiz").on("click", function () {
         vocabularyWordHistoriesDatatable.draw();
     }
 
-    openFireworks();
     quizVocabularyWords = getVocabularyWordsByVocabularyIndex();
     $("#block-quiz").show();
     renderQuizTypes();
@@ -403,4 +432,95 @@ function openFireworks() {
             'background-color': 'rgba(0, 0, 0, 0.0)'
         });
     }, 5000);
+}
+
+function createCourseLearningLog(numberOfCorrectAnswers, numberOfIncorrectAnswers) {
+    let courseID = $("#hdCourseID").val();
+
+    if (courseID > 0) {
+        let createCourseLearningLogRequest = {
+            courseID: courseID,
+            log: `Incorrect: ${numberOfIncorrectAnswers} | Correct: ${numberOfCorrectAnswers}`,
+            score: (numberOfCorrectAnswers / (numberOfCorrectAnswers + numberOfIncorrectAnswers) * 100),
+            learningDate: new Date().toISOString()
+        }
+
+        $.ajax({
+            method: "POST",
+            url: `vocabulary-quizzes/create-course-learning-log`,
+            data: JSON.stringify(createCourseLearningLogRequest),
+            headers: {
+                "Content-Type": "application/json;",
+            },
+            processData: false,
+            contentType: false,
+            datatype: 'json',
+            beforeSend: function () {
+                showLoadingOverlay();
+            },
+            complete: function () {
+                hideLoadingOverlay();
+            }
+        })
+            .done(function (response) {
+                if (response.isSuccessed === true) {
+                    courseLearningLogs.ajax.reload();
+                    return;
+                }
+                else {
+                    ShowToastError(response.message);
+                }
+
+            })
+            .fail(function (jqXHR, textStatus, errorThrown) {
+                ShowToastError(jqXHR.responseJSON.message);
+            });
+    }
+}
+
+
+function modalDelete() {
+    let modalDelete = new bootstrap.Modal(document.getElementById('modal-logs'), {
+        keyboard: false
+    })
+    modalDelete.show();
+}
+
+var courseIDLocal = parseInt($("#hdCourseID").val());
+if (courseIDLocal > 0) {
+    var courseLearningLogs = $("#courseLearningLogs").DataTable({
+        "lengthChange": false,
+        "processing": true,
+        "serverSide": true,
+        "filter": false,
+        "responsive": true,
+        'language': {
+            'loadingRecords': '&nbsp;',
+            'processing': `<div class="spinner-border" style="width: 3rem; height: 3rem" role="status">
+                        <span class="visually-hidden">Loading...</span>
+                      </div>`
+        },
+        "pagingType": 'full_numbers',
+        "ajax": {
+            "url": `/vocabulary-quizzes/get-paging-course-learning-logs/${courseIDLocal}`,
+            "type": "POST",
+            "datatype": "json"
+        },
+        "order": [[0, 'desc']],
+        "columns": [
+            {
+                "data": "learningDate", "name": "LearningDate", "Width": "15%",
+                "render": function (row, type, data) {
+                    return formatDateTimeToDDMMYYYYHHMM(data.learningDate);
+                }
+            },
+            { "data": "log", "name": "Log", "Width": "70%" },
+            {
+                "data": "score", "name": "Score", "Width": "15%",
+                "render": function (row, type, data) {
+                    return data.score.toFixed(2) + "%";
+                }
+            },
+        ]
+    });
 }

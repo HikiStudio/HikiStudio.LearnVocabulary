@@ -35,6 +35,11 @@ namespace HikiStudio.LearnVocabulary.Data.EF
             modelBuilder.ApplyConfiguration(new AudioClipConfiguration());
             modelBuilder.ApplyConfiguration(new VocabularyLearningLogConfiguration());
 
+            modelBuilder.ApplyConfiguration(new CourseConfiguration());
+            modelBuilder.ApplyConfiguration(new CourseLearningLogConfiguration());
+            modelBuilder.ApplyConfiguration(new CourseInVocabularyWordConfiguration());
+            modelBuilder.ApplyConfiguration(new FavouriteCourseConfiguration());
+
             //
             modelBuilder.Seed();
         }
@@ -58,6 +63,8 @@ namespace HikiStudio.LearnVocabulary.Data.EF
         public DbSet<CourseLearningLog> CourseLearningLogs { get; set; }
 
         public DbSet<CourseInVocabularyWord> CourseInVocabularyWords { get; set; }
+
+        public DbSet<FavouriteCourse> FavouriteCourses { get; set; }
 
     }
 }

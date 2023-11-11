@@ -1,0 +1,277 @@
+﻿@using HikiStudio.LearnVocabulary.ViewModels.VocabularyWords;
+
+@{
+    ViewData["Title"] = "Vocabulary Courses";
+
+    var vocabularyWords = ViewData["VocabularyWords"] as List<VocabularyWordViewModel>;
+}
+
+@section Header{
+    <link href="~/assets/extensions/toastify-js/src/toastify.css" rel="stylesheet" />
+    <link href="~/assets/extensions/datatables.net-bs5/css/dataTables.bootstrap5.min.css" rel="stylesheet" />
+    <link href="~/assets/extensions/datatables.net-bs5/css/select.bootstrap5.min.css" rel="stylesheet" />
+    <link href="~/assets/extensions/datatables.net-bs5/css/jquery.datatables.min.css" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" rel="stylesheet">
+    <link href="~/assets/extensions/choices.js/public/assets/styles/choices.css" rel="stylesheet" />
+
+    <script src="~/assets/extensions/font-awesome/all.min.js"></script>
+}
+
+<div class="row">
+    <div class="card w-100" style=" background: #5d87ff; color: white !important; box-shadow: none;">
+        <div class="card-body p-2">
+            <h5 style="padding: 3px 0px; margin: 0px; font-size: 18px;color: white;" class="card-title fw-semibold">Vocabulary Courses</h5>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="card w-100">
+        <div class="card-body" style="padding: 12px 0px;">
+            <div class="mb-2">
+                <div class="d-flex btn-header gap-1">
+                    <input type="text" class="form-control" id="search"
+                           placeholder="Search" />
+
+                    <button data-bs-toggle="modal"
+                            id="btn-create"
+                            data-bs-target="#modal-create"
+                            class="btn btn-outline-primary text-nowrap icon-left">
+                        <i class="bi bi-plus-lg"></i>
+                        Create Course
+                    </button>
+
+                    <button data-bs-toggle="modal" style="display: none;"
+                            data-bs-title="Delete selected lines"
+                            id="btn-deletecheckall" disabled
+                            data-bs-target="#modal-delete-multiple"
+                            class="btn btn-danger text-nowrap icon-left">
+                        <i class="bi bi-trash"></i>
+                        Delete All
+                    </button>
+                </div>
+            </div>
+            <div class="timeline-widget mb-0 position-relative">
+                <table id="vocabularyWordsDatatable" class="table table-bordered dt-responsive nowrap" width="100%" cellspacing="0" style="text-align: center">
+                    <thead>
+                        <tr>
+                            <th data-orderable="false">
+                                <input type="checkbox" id="checkbox-all" class="form-check-input bg-secondary" />
+                            </th>
+                            <th>Name</th>
+                            <th>Code</th>
+                            <th>Description</th>
+                            <th>Date Created</th>
+                            <th data-orderable="false">
+                                Action
+                            </th>
+                        </tr>
+                    </thead>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--Modal Create Course-->
+<div class="modal fade text-left" data-bs-backdrop="static" data-bs-keyboard="false" id="modal-create" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable" role="document">
+        <form class="form" method="post" id="form-create-course">
+            <div class="modal-content" style="height: 575px;">
+                <div class="modal-header">
+                    <h4 class="modal-title">Create Course</h4>
+                    <button type="button" class="close btn-close" id="cancel-create-vocabulary-word" aria-label="Close">
+                        <i class="fa-solid fa-xmark"></i>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group mandatory">
+                                <label for="course-name" class="form-label">Course Name</label>
+                                <input type="text" id="course-name" autofocus name="course-name" class="form-control" placeholder="Course Name" />
+                            </div>
+                        </div>
+
+
+                        <div class="col-md-6">
+                            <div class="form-group mandatory">
+                                <label for="description" class="form-label">Description</label>
+                                <input type="text" id="description" name="description" class="form-control" placeholder="Description" />
+                            </div>
+                        </div>
+
+                        <div class="col-md-6" style="margin-top: 10px;">
+                            <div class="form-group mandatory">
+                                <label for="course-type" class="form-label">Course Type</label>
+                                <select class="form-select form-control" id="course-type">
+                                    <option value="1">Daily Vocabulary Learning</option>
+                                    <option value="2">Special</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6" style="margin-top: 10px;">
+                            <div class="form-group mandatory">
+                                <label for="joined-date" class="form-label">Date Created</label>
+                                <input type="date" id="CreateDate" name="CreateDate" class="form-control" disabled />
+                            </div>
+                        </div>
+
+                        <div class="col-md-12" style="margin-top: 10px;">
+                            <div class="form-group mandatory">
+                                <label for="genres" class="form-label">Vocabulary Words</label>
+
+                                <div class="form-group mandatory set-genre-for-comic" id="div-select-genre">
+                                    <select id="select-genre" name="select-genre" multiple="multiple">
+                                        <option value="" hidden style="font-size:14px">Vocabulary Words</option>
+                                        @if (vocabularyWords != null)
+                                        {
+                                            @foreach (var item in vocabularyWords)
+                                            {
+                                                <option value="@item.VocabularyWordID">@item.Word</option>
+                                            }
+                                        }
+                                    </select>
+                                </div>
+                                <style>
+                                    div.choices {
+                                        margin-bottom: 0 !important;
+                                    }
+                                </style>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" id="submit-create-course" style="width: 80px;" class="btn btn-primary">Save</button>
+                    <button type="button" id="cancel-create-course" style="width: 80px;" class="btn btn-outline-dark">Cancel</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<!--Modal Update Course-->
+<div class="modal fade text-left" data-bs-backdrop="static" data-bs-keyboard="false" id="modal-edit" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable" role="document">
+        <form class="form" id="form-edit-course">
+            <div class="modal-content" style="height: 575px;">
+                <div class="modal-header">
+                    <h4 class="modal-title">Update Course</h4>
+                    <button type="button" class="close btn-close" id="cancel-edit-course" aria-label="Close">
+                        <i class="fa-solid fa-xmark"></i>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group mandatory">
+                                <label for="course-name" class="form-label">Course Name</label>
+                                <input type="text" id="course-name" autofocus name="course-name" class="form-control" placeholder="Course Name" />
+                            </div>
+                        </div>
+
+
+                        <div class="col-md-6">
+                            <div class="form-group mandatory">
+                                <label for="description" class="form-label">Description</label>
+                                <input type="text" id="description" name="description" class="form-control" placeholder="Description" />
+                            </div>
+                        </div>
+
+                        <div class="col-md-6" style="margin-top: 10px;">
+                            <div class="form-group mandatory">
+                                <label for="course-type" class="form-label">Course Type</label>
+                                <select class="form-select form-control" id="course-type">
+                                    <option value="1">Daily Vocabulary Learning</option>
+                                    <option value="2">Special</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6" style="margin-top: 10px;">
+                            <div class="form-group mandatory">
+                                <label for="joined-date" class="form-label">Date Created</label>
+                                <input type="date" id="date-created" name="date-created" class="form-control" disabled />
+                            </div>
+                        </div>
+
+                        <div class="col-md-12" style="margin-top: 10px;">
+                            <div class="form-group mandatory">
+                                <label for="genres" class="form-label">Vocabulary Words</label>
+
+                                <div class="form-group mandatory set-genre-for-comic" id="div-select-vocabulary-word-update">
+                                    <select id="select-vocabulary-word-update" name="select-vocabulary-word-update" multiple="multiple">
+                                        <option value="" hidden style="font-size:14px">Vocabulary Words</option>
+                                        @if (vocabularyWords != null)
+                                        {
+                                            @foreach (var item in vocabularyWords)
+                                            {
+                                                <option value="@item.VocabularyWordID">@item.Word</option>
+                                            }
+                                        }
+                                    </select>
+                                </div>
+                                <style>
+                                    div.choices {
+                                        margin-bottom: 0 !important;
+                                    }
+                                </style>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" id="submit-edit-course" style="width: 80px;" class="btn btn-primary">Save</button>
+                    <button type="button" id="cancel-edit-course" style="width: 80px;" class="btn btn-outline-dark">Cancel</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<!--Modal Delete Course In Line-->
+<div class="modal text-left" data-bs-backdrop="static" data-bs-keyboard="false" id="modal-delete"
+     tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Delete Course</h5>
+                <button type="button" data-bs-dismiss="modal" class="close btn-close" aria-label="Close">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+            <div class="modal-body py-3">
+                <div class="d-flex align-items-center">
+                    <div class="icon-modal">
+                        <i class="bi bi-exclamation-triangle"></i>
+                    </div>
+                    <div>
+                        <p class="mb-0">Are you sure that you want to delete <span style="color: red; font-weight: bold;" id="courseIDDelete"></span>?</p>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="submit" id="btn-delete" class="btn btn-primary" style="width: 80px;">OK</button>
+                <button type="button" data-bs-dismiss="modal" class="btn btn-outline-dark" style="width: 80px;">
+                    <span class="d-none d-sm-block">Cancel</span>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@section Footer{
+    <script src="~/assets/extensions/toastify-js/src/toastify.js"></script>
+    <script src="~/assets/extensions/jquery/jquery.min.js"></script>
+    <script src="~/assets/extensions/datatables/datatables.min.js"></script>
+    <script src="~/assets/extensions/datatables/dataTables.select.min.js"></script>
+    <script src="~/assets/extensions/jquery-validate/jquery.validate.min.js"></script>
+    <script src="~/assets/extensions/choices.js/public/assets/scripts/choices.js"></script>
+    <script src="~/js/pages/vocabulary-courses.js"></script>
+}
+
+
+

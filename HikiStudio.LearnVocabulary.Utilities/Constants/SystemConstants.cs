@@ -23,6 +23,8 @@
             public const string URLDownloadFileMP3 = "https://api.soundoftext.com/sounds";
 
             public const string URLFolderSaveVocabularyWord = "E:\\HikiStudio\\HikiStudio.Stored\\HikiStudio.LearnVocabulary";
+
+            public const int DailyLearnedVocabularyCount = 30;
         }
     }
 }

@@ -41,5 +41,7 @@ namespace HikiStudio.LearnVocabulary.Data.Entities
         public Language? Language { get; set; }
 
         public List<AudioClip>? AudioClips {  get; set; }
+
+        public List<CourseInVocabularyWord>? CourseInVocabularyWords { get; set; }
     }
 }

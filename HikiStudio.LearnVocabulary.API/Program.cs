@@ -46,6 +46,12 @@ builder.Services.AddScoped<IVocabularyInfoService, VocabularyInfoService>();
 
 builder.Services.AddScoped<ITempVocabularyWordService, TempVocabularyWordService>();
 
+builder.Services.AddScoped<ICourseService, CourseService>();
+builder.Services.AddScoped<ICourseLearningLogService, CourseLearningLogService>();
+builder.Services.AddScoped<IFavouriteCourseService, FavouriteCourseService>();
+
+builder.Services.AddScoped<ICourseLearningLogService, CourseLearningLogService>();
+
 //IdentityOptions
 builder.Services.Configure<IdentityOptions>(options =>
 {

@@ -10,14 +10,20 @@ namespace HikiStudio.LearnVocabulary.WebAPP.Controllers
 
         private readonly IVocabularyLearningLogAPIClient _vocabularyLearningLogAPIClient;
 
-        public HomeController(IVocabularyLearningLogAPIClient vocabularyLearningLogAPIClient, ILogger<HomeController> logger)
+        private readonly ICourseAPIClient _courseAPIClient;
+
+        public HomeController(IVocabularyLearningLogAPIClient vocabularyLearningLogAPIClient, 
+            ILogger<HomeController> logger,
+            ICourseAPIClient courseAPIClient)
         {
             _vocabularyLearningLogAPIClient = vocabularyLearningLogAPIClient;
             _logger = logger;
+            _courseAPIClient = courseAPIClient;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
+            await _courseAPIClient.GenerateDailyCourseAsync();
             return View();
         }
 

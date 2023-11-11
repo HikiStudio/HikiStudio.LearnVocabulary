@@ -53,6 +53,8 @@ namespace HikiStudio.LearnVocabulary.Data.Entities
         public List<AppUserToken>? AppUserTokens { get; set; }
 
         public List<AppUserClaim>? AppUserClaims { get; set; }
+
+        public List<FavouriteCourse>? FavouriteCourses { get; set; }
         #endregion
     }
 }

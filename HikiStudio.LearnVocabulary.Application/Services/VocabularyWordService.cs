@@ -182,6 +182,39 @@ namespace HikiStudio.LearnVocabulary.Application.Services
             return pagedResponse;
         }
 
+        public async Task<List<VocabularyWordViewModel>> GetVocabularyWordByCourseIDAsync(int courseID)
+        {
+            var vocabularyWords = await _context.Courses.Where(c => c.CourseID == courseID && c.IsDeleted == false)
+                .SelectMany(c => c.CourseInVocabularyWords)
+                .SelectMany(civw => _context.VocabularyWords.Where(vw => civw.VocabularyWordID == vw.VocabularyWordID)
+                .Include(vw => vw.AudioClips)).Select(vw => new VocabularyWordViewModel
+                {
+                    VocabularyWordID = vw.VocabularyWordID,
+                    VocabularyTypeID = vw.VocabularyTypeID,
+                    LanguageID = vw.LanguageID,
+                    Word = vw.Word,
+                    Definition = vw.Definition,
+                    Pronunciation = vw.Pronunciation,
+                    ExampleSentence = vw.ExampleSentence,
+                    ExampleSentenceMeaning = vw.ExampleSentenceMeaning,
+                    Synonyms = vw.Synonyms,
+                    Antonyms = vw.Antonyms,
+                    ImageURL = vw.ImageURL,
+                    DateCreated = vw.DateCreated,
+                    AudioClips = vw.AudioClips == null ? null : vw.AudioClips
+                        .Select(ac => new AudioClipViewModel
+                        {
+                            AudioClipID = ac.AudioClipID,
+                            VocabularyWordID = ac.VocabularyWordID,
+                            PronunciationTypeID = ac.PronunciationTypeID,
+                            AudioURL = ac.AudioURL
+                        }).ToList()
+                })
+                .ToListAsync();
+
+            return vocabularyWords;
+        }
+
         public async Task<APIResponse<VocabularyWordViewModel>> GetVocabularyWordByVocabularyWordIDAsync(long vocabularyWordID)
         {
             var vocabularyWord = await _context.VocabularyWords.FirstOrDefaultAsync(x => x.VocabularyWordID == vocabularyWordID);

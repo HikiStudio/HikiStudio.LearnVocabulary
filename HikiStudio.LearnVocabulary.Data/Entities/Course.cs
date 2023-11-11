@@ -1,4 +1,5 @@
 using HikiStudio.LearnVocabulary.Data.Entities.Base.Entities;
+using HikiStudio.LearnVocabulary.Utilities.Enums;
 
 namespace HikiStudio.LearnVocabulary.Data.Entities
 {
@@ -8,8 +9,17 @@ namespace HikiStudio.LearnVocabulary.Data.Entities
 
         public string CourseName { get; set; } = String.Empty;
 
-        public List<CourseInVocabularyWord>? CourseVocabularies { get; set; } 
+        public string CourseCode { get; set; } = String.Empty;
 
-        public List<CourseLearningLog>? LearningLogs { get; set; } 
+        public string Description { get; set; } = String.Empty;
+
+        public CourseTypeEnum CourseType {  get; set; }
+
+        public List<CourseInVocabularyWord> CourseInVocabularyWords { get; set; } = new List<CourseInVocabularyWord>();
+
+        public List<CourseLearningLog>? CourseLearningLogs { get; set; }
+
+        public List<FavouriteCourse>? FavouriteCourses { get; set; }
+
     }
 }
