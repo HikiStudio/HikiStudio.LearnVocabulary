@@ -15,6 +15,12 @@ var numberOfIncorrectAnswers = 0;
 const container = $('.fireworks');
 const fireworks = new Fireworks.default(container[0]);
 
+const quizTypes = [
+    { "QuizTypeID": 1, "Name": "All" },
+    { "QuizTypeID": 2, "Name": "Fill in the blank (Word)" },
+    { "QuizTypeID": 3, "Name": "Choose the correct answer" },
+    { "QuizTypeID": 4, "Name": "Fill in the blank (Definition)" }
+];
 //#endregion
 
 function setOptionQuizTypes(quizTypes, elementID) {
@@ -121,22 +127,50 @@ function setVocabularyWordHistoriesAndReloadTable() {
 //#endregion
 
 //#region quiz type: fill in the blank
-function renderQuizTypeFillInTheBlank() {
+function renderQuizTypeFillInTheBlank(option) {
     $("#quiz-type-choose").hide();
     $("#quiz-type-fill").show();
 
     if (currentItemQuizVocabularyWord == null || currentItemQuizVocabularyWord == undefined)
         return;
 
-    $("#vocabulary-word-question").html(`${currentItemQuizVocabularyWord.definition}<br><span class="vocabulary-info">${currentItemQuizVocabularyWord.pronunciation}</span>`);
+    //fill word
+    if (option === 2) {
+        $("#vocabulary-word-question").html(`${currentItemQuizVocabularyWord.definition}`);
+    }
+    //fill definition
+    if (option === 4) {
+        $("#vocabulary-word-question").html(`${currentItemQuizVocabularyWord.word}<br><span class="vocabulary-info">${currentItemQuizVocabularyWord.pronunciation}</span>`);
+    }
+
     if (currentItemQuizVocabularyWord.audioClips.length > 0) {
         $("#audio-vocabulary-word-question").data("audioclipid", currentItemQuizVocabularyWord.audioClips[0].audioClipID);
     }
 }
 
+
+function checkAnswerStandardized(data, answer) {
+    const rightAnswers = data.split(',').map(item => item.trim().toLowerCase());
+
+    const answerStandardized = answer.trim().toLowerCase();
+    const isAnswerCorrect = rightAnswers.some(rightAnswer => answerStandardized.includes(rightAnswer));
+
+    return isAnswerCorrect;
+}
+
+
 function checkAnswerVocabularyWord() {
     let answerVocabularyWord = $("#answer-vocabulary-word").val();
-    if (answerVocabularyWord.trim().toLowerCase() === currentItemQuizVocabularyWord.word.trim().toLowerCase()) {
+    if (checkAnswerStandardized(answerVocabularyWord, currentItemQuizVocabularyWord.word)) {
+        ShowToastSuccess("You answered correctly!");
+        setVocabularyWordHistoriesAndReloadTable();
+        numberOfCorrectAnswers++;
+        setNumberOfCorrectAnswers();
+        $("#answer-vocabulary-word").val("");
+        playAudio();
+        renderQuizTypes();
+    }
+    else if (checkAnswerStandardized(answerVocabularyWord, currentItemQuizVocabularyWord.definition)) {
         ShowToastSuccess("You answered correctly!");
         setVocabularyWordHistoriesAndReloadTable();
         numberOfCorrectAnswers++;
@@ -158,7 +192,7 @@ $("#check-answer-vocabulary-word").click(function () {
 
 
 $("#show-answer-vocabulary-word").click(function () {
-    ShowToastInfo(currentItemQuizVocabularyWord.word);
+    ShowToastInfo(`${currentItemQuizVocabularyWord.word} /${currentItemQuizVocabularyWord.pronunciation}/ : ${currentItemQuizVocabularyWord.definition}`);
 })
 
 $("#answer-vocabulary-word").keypress(function (e) {
@@ -230,18 +264,18 @@ function renderQuizTypes() {
     }
 
     if (quizTypeIDSelected === "1") {
-        let quizTypeID = Math.floor(Math.random() * 2) + 1;
-        if (quizTypeID === 1) {
+        let quizTypeID = Math.floor(Math.random() * 3) + 2;
+        if (quizTypeID === 3) {
             let vocabularyWordsChooseAnswer = initVocabularyWordChooseAnswer();
             renderQuizTypeChooseAnswer(vocabularyWordsChooseAnswer);
         }
         else {
-            renderQuizTypeFillInTheBlank();
+            renderQuizTypeFillInTheBlank(quizTypeID);
         }
     }
 
     if (quizTypeIDSelected === "2") {
-        renderQuizTypeFillInTheBlank();
+        renderQuizTypeFillInTheBlank(2);
     }
 
     if (quizTypeIDSelected === "3") {
@@ -249,10 +283,15 @@ function renderQuizTypes() {
         renderQuizTypeChooseAnswer(vocabularyWordsChooseAnswer);
     }
 
+    if (quizTypeIDSelected === "4") {
+        renderQuizTypeFillInTheBlank(4);
+    }
+
     let numberOfCorrectAnswers = parseInt($("#number-of-correct-answers").text());
     let numberOfIncorrectAnswers = parseInt($("#number-of-incorrect-answers").text());
     if (quizVocabularyWords.length === 0 && (currentItemQuizVocabularyWord === null || currentItemQuizVocabularyWord === undefined)) {
         if (numberOfCorrectAnswers > 0 || numberOfIncorrectAnswers > 0) {
+            stopTimer();
             createCourseLearningLog(numberOfCorrectAnswers, numberOfIncorrectAnswers)
         }
 
@@ -263,7 +302,6 @@ function renderQuizTypes() {
 }
 
 $(document).ready(function () {
-    const quizTypes = [{ "QuizTypeID": 1, "Name": "All" }, { "QuizTypeID": 2, "Name": "Fill in the blank" }, { "QuizTypeID": 3, "Name": "Choose the correct answer" }];
     setOptionQuizTypes(quizTypes, "quiz-types")
 
     vocabularyTypeIDSelected = $('#vocabulary-types').find(":selected").val();
@@ -295,6 +333,14 @@ $("#start-quiz").on("click", function () {
     quizVocabularyWords = getVocabularyWordsByVocabularyIndex();
     $("#block-quiz").show();
     renderQuizTypes();
+
+    if (!running) {
+        startTimer();
+    } else {
+        stopTimer();
+        resetTimer();
+        startTimer();
+    }
 });
 
 $("#vocabulary-types").change(function () {
@@ -442,6 +488,8 @@ function createCourseLearningLog(numberOfCorrectAnswers, numberOfIncorrectAnswer
             courseID: courseID,
             log: `Incorrect: ${numberOfIncorrectAnswers} | Correct: ${numberOfCorrectAnswers}`,
             score: (numberOfCorrectAnswers / (numberOfCorrectAnswers + numberOfIncorrectAnswers) * 100),
+            quizTypeID: parseInt(quizTypeIDSelected = $('#quiz-types').find(":selected").val()),
+            duration: $("#timer").text(),
             learningDate: new Date().toISOString()
         }
 
@@ -514,7 +562,18 @@ if (courseIDLocal > 0) {
                     return formatDateTimeToDDMMYYYYHHMM(data.learningDate);
                 }
             },
-            { "data": "log", "name": "Log", "Width": "70%" },
+            {
+
+                "data": "quizTypeID", "name": "QuizTypeID", "Width": "30%",
+                "render": function (row, type, data) {
+                    if (data.quizTypeID !== null && data.quizTypeID !== undefined) {
+                        return quizTypes[parseInt(data.quizTypeID) - 1].Name;
+                    }
+                    return "";
+                }
+            },
+            { "data": "duration", "name": "Duration", "Width": "20%" },
+            { "data": "log", "name": "Log", "Width": "25%" },
             {
                 "data": "score", "name": "Score", "Width": "15%",
                 "render": function (row, type, data) {
@@ -523,4 +582,41 @@ if (courseIDLocal > 0) {
             },
         ]
     });
+}
+
+let timerInterval;
+let startTime;
+let running = false;
+
+function startTimer() {
+    startTime = Date.now();
+    timerInterval = setInterval(updateTimer, 1000);
+    running = true;
+}
+
+function stopTimer() {
+    clearInterval(timerInterval);
+    running = false;
+}
+
+function resetTimer() {
+    $('#timer').text('00:00:00');
+    startTime = 0;
+}
+
+function updateTimer() {
+    const elapsedTime = Date.now() - startTime;
+    const formattedTime = formatTime(elapsedTime);
+    $('#timer').text(formattedTime);
+}
+
+function formatTime(milliseconds) {
+    const hours = Math.floor(milliseconds / 3600000);
+    const minutes = Math.floor((milliseconds % 3600000) / 60000);
+    const seconds = Math.floor((milliseconds % 60000) / 1000);
+    return (
+        (hours < 10 ? '0' : '') + hours + ':' +
+        (minutes < 10 ? '0' : '') + minutes + ':' +
+        (seconds < 10 ? '0' : '') + seconds
+    );
 }

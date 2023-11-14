@@ -20,6 +20,10 @@ namespace HikiStudio.LearnVocabulary.Data.Configurations
 
             builder.Property(x => x.Log).IsRequired(false).HasMaxLength(2000);
 
+            builder.Property(x => x.QuizTypeID).IsRequired(false);
+
+            builder.Property(x => x.Duration).IsRequired(false);
+
             builder.Property(x => x.Score).IsRequired(true).HasDefaultValue(0);
 
             builder.HasOne(x => x.Course).WithMany(x => x.CourseLearningLogs).HasForeignKey(x => x.CourseID);

@@ -277,3 +277,6 @@ input {
     transform: scale(1.2);
     animation: none; /* Tắt animation rotation khi hover để tránh xung đột với hiệu ứng transition */
 }
+
+
+

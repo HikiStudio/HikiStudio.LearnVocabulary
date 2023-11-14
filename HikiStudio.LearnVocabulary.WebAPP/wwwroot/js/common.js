@@ -1,6 +1,6 @@
 ﻿//#regiom global variable
-const URLServer = "https://localhost:7092";
-//const URLServer = "http://localhost:9999";
+//const URLServer = "https://localhost:7092";
+const URLServer = "http://localhost:9999";
 //#endregion
 
 //#region initialize toast

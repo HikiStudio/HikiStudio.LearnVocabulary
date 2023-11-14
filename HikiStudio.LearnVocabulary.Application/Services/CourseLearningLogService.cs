@@ -31,6 +31,8 @@ namespace HikiStudio.LearnVocabulary.Application.Services
                 CourseID = request.CourseID,
                 Log = request.Log,
                 Score = request.Score,
+                Duration = request.Duration,
+                QuizTypeID = request.QuizTypeID,
                 LearningDate = request.LearningDate,
                 DateCreated = DateTime.Now,
                 CreatedBy = SystemConstants.AppSettings.CreateByDefault,
@@ -71,6 +73,8 @@ namespace HikiStudio.LearnVocabulary.Application.Services
                     CourseID = x.CourseID,
                     Log = x.Log,
                     Score = x.Score,
+                    QuizTypeID = x.QuizTypeID,
+                    Duration = x.Duration,
                     LearningDate = x.LearningDate,
                     DateCreated = x.DateCreated,
                 })

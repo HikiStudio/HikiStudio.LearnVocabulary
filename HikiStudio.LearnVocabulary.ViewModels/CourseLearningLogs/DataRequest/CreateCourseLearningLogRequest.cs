@@ -6,6 +6,10 @@
 
         public string? Log { get; set; }
 
+        public int? QuizTypeID { get; set; }
+
+        public TimeSpan? Duration { get; set; }
+
         public double Score { get; set; }
 
         public DateTime LearningDate {  get; set; }
