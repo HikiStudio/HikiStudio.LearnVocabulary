@@ -1,8 +1,7 @@
-﻿using HikiStudio.LearnVocabulary.Data.Extensions;
+﻿using HikiStudio.LearnVocabulary.Data.Configurations;
 using HikiStudio.LearnVocabulary.Data.Entities;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using HikiStudio.LearnVocabulary.Data.Configurations;
 
 namespace HikiStudio.LearnVocabulary.Data.EF
 {
@@ -40,8 +39,10 @@ namespace HikiStudio.LearnVocabulary.Data.EF
             modelBuilder.ApplyConfiguration(new CourseInVocabularyWordConfiguration());
             modelBuilder.ApplyConfiguration(new FavouriteCourseConfiguration());
 
+            modelBuilder.ApplyConfiguration(new VocabularyRelationshipConfiguration());
+
             //
-            modelBuilder.Seed();
+            //modelBuilder.Seed();
         }
 
         public override DbSet<AppRole> Roles { get; set; }
@@ -65,6 +66,8 @@ namespace HikiStudio.LearnVocabulary.Data.EF
         public DbSet<CourseInVocabularyWord> CourseInVocabularyWords { get; set; }
 
         public DbSet<FavouriteCourse> FavouriteCourses { get; set; }
+
+        public DbSet<VocabularyRelationship> VocabularyRelationships { get; set; }
 
     }
 }

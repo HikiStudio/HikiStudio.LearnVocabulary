@@ -170,6 +170,47 @@
     </audio>
 </div>
 
+<!--Modal Assign Vocabulary Relationship Type -->
+<div class="modal fade text-left" data-bs-backdrop="static" data-bs-keyboard="false" id="modal-assign" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable" role="document">
+        <form class="form" method="post" id="form-assign-vocabulary-word">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Assign Vocabulary Word</h4>
+                    <button type="button" class="close btn-close" id="cancel-assign-vocabulary-word" aria-label="Close">
+                        <i class="fa-solid fa-xmark"></i>
+                    </button>
+                </div>
+                <div class="modal-body" style="width: 800px;">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label for="synonym-vocabulary-words" class="form-label">Synonym - Vocabulary Words</label>
+
+                                <div id="synonym-vocabulary-words"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row" style="padding-top: 10px;">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label for="antonym-vocabulary-words" class="form-label">Antonym - Vocabulary Words</label>
+
+                                <div id="antonym-vocabulary-words"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" id="cancel-assign-vocabulary-word" style="width: 80px;" class="btn btn-outline-dark">Cancel</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+
 <input hidden id="hdCourseID" value="@ViewBag.CourseID"/>
 
 @section Footer{

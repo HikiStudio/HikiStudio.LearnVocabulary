@@ -1,0 +1,52 @@
+@{
+    ViewData["Title"] = "Common Regular Verbs";
+}
+
+<div class="row">
+    <div class="card w-100" style=" background: #5d87ff; color: white !important; box-shadow: none;">
+        <div class="card-body p-2">
+            <h5 style="padding: 3px 0px; margin: 0px; font-size: 18px;color: white;" class="card-title fw-semibold">Common Regular Verbs</h5>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="card w-100">
+        <div class="card-body" style="padding: 12px 0px;">
+            <div class="mb-2">
+                <div class="d-flex btn-header gap-1">
+                    <input type="text" class="form-control" id="search"
+                           placeholder="Search" />
+                </div>
+            </div>
+            <div class="timeline-widget mb-0 position-relative">
+                <table id="vocabularyWordsDatatable" class="table table-bordered dt-responsive nowrap" width="100%" cellspacing="0" style="text-align: center">
+                    <thead>
+                        <tr>
+                            <th data-orderable="false">
+                                <input type="checkbox" id="checkbox-all" class="form-check-input bg-secondary" />
+                            </th>
+                            <th>STT</th>
+                            <th>Nguyên mẫu (V1)</th>
+                            <th>Quá khứ (V2)</th>
+                            <th>Quá khứ phân từ (V3)</th>
+                            <th>Nghĩa</th>
+                        </tr>
+                    </thead>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+@section Footer {
+    <script src="~/assets/extensions/toastify-js/src/toastify.js"></script>
+    <script src="~/assets/extensions/jquery/jquery.min.js"></script>
+    <script src="~/assets/extensions/datatables/datatables.min.js"></script>
+    <script src="~/assets/extensions/datatables/dataTables.select.min.js"></script>
+    <script src="~/assets/extensions/jquery-validate/jquery.validate.min.js"></script>
+    <script src="~/js/datas/data-common-regular-verbs.js"></script>
+    <script src="~/js/pages/common-regular-verbs.js"></script>
+}

@@ -1,4 +1,6 @@
-﻿namespace HikiStudio.LearnVocabulary.Utilities.Constants
+﻿using Microsoft.Extensions.Configuration;
+
+namespace HikiStudio.LearnVocabulary.Utilities.Constants
 {
     public class SystemConstants
     {
@@ -24,7 +26,20 @@
 
             public const string URLFolderSaveVocabularyWord = "E:\\HikiStudio\\HikiStudio.Stored\\HikiStudio.LearnVocabulary";
 
-            public const int DailyLearnedVocabularyCount = 30;
+            public static int DailyLearnedVocabularyCount { get; private set; }
+
+            static AppSettings()
+            {
+                IConfigurationRoot configuration = new ConfigurationBuilder()
+                    .SetBasePath(Directory.GetCurrentDirectory())
+                    .AddJsonFile("appsettings.json")
+                    .Build();
+
+                var data = configuration.GetSection("DailyLearnedVocabularyCount").Value;
+
+                DailyLearnedVocabularyCount = Int32.Parse(data ?? "0");
+            }
+
         }
     }
 }

@@ -119,7 +119,7 @@ function randomVocabularyWordInsideQuizVocabularyWord(isDeleteItem = false) {
 
 //#region setVocabularyWordHistories And Reload Table
 function setVocabularyWordHistoriesAndReloadTable() {
-    vocabularyWordHistories.push(currentItemQuizVocabularyWord);
+    vocabularyWordHistories.unshift(currentItemQuizVocabularyWord);
     vocabularyWordHistoriesDatatable.clear();
     vocabularyWordHistoriesDatatable.rows.add(vocabularyWordHistories);
     vocabularyWordHistoriesDatatable.draw();
@@ -401,6 +401,7 @@ var vocabularyWordHistoriesDatatable = $("#vocabularyWordHistoriesDatatable").Da
             className: "text-start",
             targets: [1]
         }],
+    "order": [[2, 'desc']],
     "columns": [
         {
             "Width": "5%",
@@ -411,8 +412,9 @@ var vocabularyWordHistoriesDatatable = $("#vocabularyWordHistoriesDatatable").Da
         {
             "name": "Vocabulary Word",
             "render": function (row, type, data) {
-                let html = `<span>${data.word}</span><span style="font-style: italic; color: green;">${data.definition}</span>`;
-                return `<div class="d-flex gap-2" style="flex-direction: column;">
+                let html = `<p style="margin: 0px;">${data.word}<span style="padding-left: 20px; font-style: italic; color: green;">/${data.pronunciation}/</span></p>
+                            <span style="font-style: normal; color: blue;">${data.definition}</span>`;
+                return `<div class="d-flex gap-1" style="flex-direction: column;">
                             ${html}
                         </div>`;
             }
@@ -429,6 +431,7 @@ var vocabularyWordHistoriesDatatable = $("#vocabularyWordHistoriesDatatable").Da
                 }
 
                 return `<div class="d-flex gap-2 justify-content-center">
+                            <a href="javascript:void(0)" onclick="modalAssignVocabularyRelationshipType(${data.vocabularyWordID})" class="btn btn-info link-edit" style="background: transparent; border: none; color: #ff8201; padding: 0px;" ><i class="ti ti-brand-airtable"></i></a>
                             ${html}
                         </div>`;
             }
@@ -526,7 +529,6 @@ function createCourseLearningLog(numberOfCorrectAnswers, numberOfIncorrectAnswer
     }
 }
 
-
 function modalDelete() {
     let modalDelete = new bootstrap.Modal(document.getElementById('modal-logs'), {
         keyboard: false
@@ -620,3 +622,68 @@ function formatTime(milliseconds) {
         (seconds < 10 ? '0' : '') + seconds
     );
 }
+
+//#region assign vocabulary word
+var vocabularyWordIDAssign;
+function modalAssignVocabularyRelationshipType(vocabularyWordID, word) {
+    vocabularyWordIDAssign = vocabularyWordID;
+
+    var myModal = new bootstrap.Modal(document.getElementById('modal-assign'), {
+        keyboard: false
+    })
+
+    $.ajax({
+        method: "GET",
+        url: `/vocabulary-words/get-vocabulary-relationship-by-vocabulary-word-id/${vocabularyWordID}`,
+    })
+        .done(function (response) {
+            if (response.isSuccessed === true) {
+                let synonymVocabularyWords = [];
+                let antonymVocabularyWords = [];
+
+                response.resultObj.forEach((item) => {
+                    if (item.vocabularyRelationshipType == 1) {
+                        synonymVocabularyWords.push(item);
+                    }
+
+                    if (item.vocabularyRelationshipType == 2) {
+                        antonymVocabularyWords.push(item);
+                    }
+                });
+
+                // Call the function to populate synonym words
+                populateVocabularyWords(synonymVocabularyWords, 'synonym-vocabulary-words');
+
+                // Call the function to populate antonym words
+                populateVocabularyWords(antonymVocabularyWords, 'antonym-vocabulary-words');
+
+                myModal.show();
+            }
+            else {
+                ShowToastError(response.message);
+            }
+        })
+        .fail(function (jqXHR, textStatus, errorThrown) {
+            ShowToastError(jqXHR.responseJSON.message);
+        });
+}
+
+//#endregion
+
+function populateVocabularyWords(vocabularyWords, containerId) {
+    const container = $(`#${containerId}`);
+    container.empty(); // Clear previous content
+
+    vocabularyWords.forEach(vocabularyWord => {
+        const vocabularyWordItem = $('<label>').addClass('vocabulary-word-item btn btn-secondary rounded-pill').text(vocabularyWord.word);
+        container.append(vocabularyWordItem);
+    });
+}
+
+$(document).on('click', '#cancel-assign-vocabulary-word', function () {
+    const truck_modal = document.querySelector('#modal-assign');
+    const modal = bootstrap.Modal.getInstance(truck_modal);
+    modal.hide();
+    $('#form-assign-vocabulary-word :input[type="text"]').val('');
+    $('#form-assign-vocabulary-word :input[type="date"]').val('');
+});

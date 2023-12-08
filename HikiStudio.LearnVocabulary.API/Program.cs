@@ -52,6 +52,8 @@ builder.Services.AddScoped<IFavouriteCourseService, FavouriteCourseService>();
 
 builder.Services.AddScoped<ICourseLearningLogService, CourseLearningLogService>();
 
+builder.Services.AddScoped<IVocabularyRelationshipService, VocabularyRelationshipService>();
+
 //IdentityOptions
 builder.Services.Configure<IdentityOptions>(options =>
 {

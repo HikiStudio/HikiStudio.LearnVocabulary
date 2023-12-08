@@ -1,9 +1,10 @@
 ﻿@using HikiStudio.LearnVocabulary.ViewModels.VocabularyTypes;
+@using HikiStudio.LearnVocabulary.ViewModels.VocabularyWords;
 
 @{
     ViewData["Title"] = "Vocabulary Words";
-
     var vocabularyTypes = ViewData["VocabularyTypes"] as List<VocabularyTypeViewModel>;
+    var vocabularyWords = ViewData["VocabularyWords"] as List<VocabularyWordViewModel>;
 }
 
 @section Header{
@@ -12,6 +13,7 @@
     <link href="~/assets/extensions/datatables.net-bs5/css/select.bootstrap5.min.css" rel="stylesheet" />
     <link href="~/assets/extensions/datatables.net-bs5/css/jquery.datatables.min.css" rel="stylesheet" />
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" rel="stylesheet">
+    <link href="~/assets/extensions/choices.js/public/assets/styles/choices.css" rel="stylesheet" />
 
     <script src="~/assets/extensions/font-awesome/all.min.js"></script>
 }
@@ -168,6 +170,79 @@
     </div>
 </div>
 
+<!--Modal Assign Vocabulary Relationship Type -->
+<div class="modal fade text-left" data-bs-backdrop="static" data-bs-keyboard="false" id="modal-assign" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable" role="document">
+        <form class="form" method="post" id="form-assign-vocabulary-word">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Assign Vocabulary Word</h4>
+                    <button type="button" class="close btn-close" id="cancel-assign-vocabulary-word" aria-label="Close">
+                        <i class="fa-solid fa-xmark"></i>
+                    </button>
+                </div>
+                <div class="modal-body" style="width: 800px; height: 450px;">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group mandatory">
+                                <label for="set-synonym-vocabulary-words" class="form-label">Synonym - Vocabulary Words</label>
+
+                                <div class="form-group mandatory set-synonym-vocabulary-words" id="div-select-synonym-vocabulary-words">
+                                    <select id="select-synonym-vocabulary-words" name="select-synonym-vocabulary-words" multiple="multiple">
+                                        <option value="" hidden style="font-size:14px">Synonym - Vocabulary Words</option>
+                                        @if (vocabularyWords != null)
+                                        {
+                                            @foreach (var item in vocabularyWords)
+                                            {
+                                                <option value="@item.VocabularyWordID">@item.Word</option>
+                                            }
+                                        }
+                                    </select>
+                                </div>
+                                <style>
+                                    div.choices {
+                                        margin-bottom: 0 !important;
+                                    }
+                                </style>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row" style="padding-top: 10px;">
+                        <div class="col-md-12">
+                            <div class="form-group mandatory">
+                                <label for="antonym-vocabulary-words" class="form-label">Antonym - Vocabulary Words</label>
+
+                                <div class="form-group mandatory set-genre-for-comic" id="div-select-antonym-vocabulary-words">
+                                    <select id="select-antonym-vocabulary-words" name="select-antonym-vocabulary-words" multiple="multiple">
+                                        <option value="" hidden style="font-size:14px">Antonym - Vocabulary Words</option>
+                                        @if (vocabularyWords != null)
+                                        {
+                                            @foreach (var item in vocabularyWords)
+                                            {
+                                                <option value="@item.VocabularyWordID">@item.Word</option>
+                                            }
+                                        }
+                                    </select>
+                                </div>
+                                <style>
+                                    div.choices {
+                                        margin-bottom: 0 !important;
+                                    }
+                                </style>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" id="submit-assign-vocabulary-word" style="width: 80px;" class="btn btn-primary">Save</button>
+                    <button type="button" id="cancel-assign-vocabulary-word" style="width: 80px;" class="btn btn-outline-dark">Cancel</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
 <!--Modal Update Vocabulary Word -->
 <div class="modal fade text-left" data-bs-backdrop="static" data-bs-keyboard="false" id="modal-edit" tabindex="-1" role="dialog" aria-hidden="true">
     <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable" role="document">
@@ -307,5 +382,6 @@
     <script src="~/assets/extensions/datatables/datatables.min.js"></script>
     <script src="~/assets/extensions/datatables/dataTables.select.min.js"></script>
     <script src="~/assets/extensions/jquery-validate/jquery.validate.min.js"></script>
+    <script src="~/assets/extensions/choices.js/public/assets/scripts/choices.js"></script>
     <script src="~/js/pages/vocabulary-words.js"></script>
 }

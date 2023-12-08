@@ -2,6 +2,7 @@
 using HikiStudio.LearnVocabulary.Utilities.Constants;
 using HikiStudio.LearnVocabulary.ViewModels.Common.API;
 using HikiStudio.LearnVocabulary.ViewModels.Common.Pages;
+using HikiStudio.LearnVocabulary.ViewModels.VocabularyRelationships.DataRequest;
 using HikiStudio.LearnVocabulary.ViewModels.VocabularyWords.DataRequest;
 using Microsoft.AspNetCore.Mvc;
 
@@ -14,20 +15,27 @@ namespace HikiStudio.LearnVocabulary.WebAPP.Controllers
 
         private readonly IVocabularyWordAPIClient _vocabularyWordAPIClient;
 
+        private readonly IVocabularyRelationshipAPIClient _vocabularyRelationshipAPIClient;
+
         private readonly IMp3APIClient _mp3APIClient;
 
         public VocabularyWordsController(IVocabularyWordAPIClient vocabularyWordAPIClient, 
-            IVocabularyTypeAPIClient vocabularyTypeAPIClient, IMp3APIClient mp3APIClient)
+            IVocabularyTypeAPIClient vocabularyTypeAPIClient, IMp3APIClient mp3APIClient, 
+            IVocabularyRelationshipAPIClient vocabularyRelationshipAPIClient)
         {
             _vocabularyTypeAPIClient = vocabularyTypeAPIClient;
             _vocabularyWordAPIClient = vocabularyWordAPIClient;
             _mp3APIClient = mp3APIClient;
+            _vocabularyRelationshipAPIClient = vocabularyRelationshipAPIClient;
         }
 
         public async Task<IActionResult> Index()
         {
             var vocabularyTypes = await _vocabularyTypeAPIClient.GetAllVocabularyTypesAsync();
             ViewData["VocabularyTypes"] = vocabularyTypes.ResultObj;
+
+            var vocabularyWords = await _vocabularyWordAPIClient.GetAllVocabularyWordAsync(1);
+            ViewData["VocabularyWords"] = vocabularyWords;
 
             return View();
         }
@@ -138,6 +146,26 @@ namespace HikiStudio.LearnVocabulary.WebAPP.Controllers
             {
                 return StatusCode(500, ex.Message);
             }
+        }
+
+        [HttpGet("get-vocabulary-relationship-by-vocabulary-word-id/{vocabularyWordID}")]
+        public async Task<IActionResult> GetVocabularyRelationshipByVocabularyWordID(long vocabularyWordID)
+        {
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+
+            var result = await _vocabularyRelationshipAPIClient.GetVocabularyRelationshipByVocabularyWordIDAsync(vocabularyWordID);
+            return Ok(result);
+        }
+
+        [HttpPost("assign-vocabulary-relationship/{vocabularyWordID}")]
+        public async Task<IActionResult> AssignVocabularyRelationship([FromBody] List<AssignVocabularyRelationshipRequest> requests, long vocabularyWordID)
+        {
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+
+            var result = await _vocabularyRelationshipAPIClient.AssignVocabularyRelationshipAsync(requests, vocabularyWordID);
+            return Ok(result);
         }
     }
 }

@@ -279,4 +279,20 @@ input {
 }
 
 
+#verbsTable thead {
+    background: rgb(28 144 70);
+    color: white;
+}
+
+#verbsTable thead tr th {
+    padding: 5px;
+}
+
+
+.vocabulary-word-item {
+    padding: 1px 15px;
+    font-size: 13px;
+    color: black;
+    margin: 0 5px 5px 0px;
+}
 

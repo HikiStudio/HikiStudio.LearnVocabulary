@@ -23,7 +23,7 @@ builder.Services.AddScoped<IVocabularyLearningLogAPIClient, VocabularyLearningLo
 builder.Services.AddScoped<ICourseAPIClient, CourseAPIClient>();
 builder.Services.AddScoped<IFavouriteCourseAPIClient, FavouriteCourseAPIClient>();
 builder.Services.AddScoped<ICourseLearningLogAPIClient, CourseLearningLogAPIClient>();
-
+builder.Services.AddScoped<IVocabularyRelationshipAPIClient, VocabularyRelationshipAPIClient>();
 
 builder.Services.AddRazorPages();
 

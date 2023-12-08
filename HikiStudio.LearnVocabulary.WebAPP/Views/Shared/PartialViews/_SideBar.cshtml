@@ -5,7 +5,7 @@
     <div>
         <div class="brand-logo d-flex align-items-center justify-content-between">
             <a href="./index.html" class="text-nowrap logo-img">
-                <img src="https://res.cloudinary.com/https-deptraitd-blogspot-com/image/upload/v1699711754/Learning_Languages_qhprfx.png" width="180" alt="" />
+                <img src="https://i.ibb.co/0cphb1m/Learning-Languages-1.png" width="180" alt="" />
             </a>
             <div class="close-btn d-xl-none d-block sidebartoggler cursor-pointer" id="sidebarCollapse">
                 <i class="ti ti-x fs-8"></i>
@@ -33,6 +33,14 @@
                             <i class="ti ti-cards"></i>
                         </span>
                         <span class="hide-menu">My Courses</span>
+                    </a>
+                </li>
+                <li class="sidebar-item @Html.IsActive("CommonRegularVerbs", "selected")">
+                    <a asp-action="Index" asp-controller="CommonRegularVerbs" class="sidebar-link @Html.IsActiveWithAction("CommonRegularVerbs", "Index")" aria-expanded="false">
+                        <span>
+                            <i class="ti ti-creative-commons-nd"></i>
+                        </span>
+                        <span class="hide-menu">Regular Verbs</span>
                     </a>
                 </li>
 
