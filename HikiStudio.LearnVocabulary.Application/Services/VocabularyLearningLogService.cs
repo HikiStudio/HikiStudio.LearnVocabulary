@@ -52,6 +52,37 @@ namespace HikiStudio.LearnVocabulary.Application.Services
             return pagedResponse;
         }
 
+        public async Task<APIResponse<StatisticsVocabularyLearningViewModel>> GetStatisticsVocabularyLearningAsync(int days)
+        {
+            IQueryable<VocabularyLearningLog> query = _context.VocabularyLearningLogs;
+
+            var vocabularyLearningLogs = await query.OrderByDescending(x => x.DateCreated)
+                .Take(days)
+                .Select(x => new VocabularyLearningLogViewModel
+                {
+                    VocabularyLearningLogID = x.VocabularyLearningLogID,
+                    UserID = x.UserID,
+                    Duration = x.Duration,
+                    Notes = x.Notes,
+                    DeviceInfo = x.DeviceInfo,
+                    DateCreated = x.DateCreated
+                })
+                .ToListAsync();
+
+
+            List<string> labels = new List<string>();
+            List<TimeSpan?> dateTimes = new List<TimeSpan?>();
+            foreach (var item in vocabularyLearningLogs)
+            {
+                labels.Add(item.DateCreated.ToString("dd/MM/yyyy"));
+                dateTimes.Add(item.Duration);
+            }
+
+            var result = new StatisticsVocabularyLearningViewModel() { Days = labels, DateTimes = dateTimes };
+
+            return new APISuccessResponse<StatisticsVocabularyLearningViewModel>() { ResultObj = result, Message = MessageConstants.GetObjectSuccess(nameof(StatisticsVocabularyLearningViewModel))};
+        }
+
         public async Task<APIResponse<VocabularyLearningLogViewModel>> ReadVocabularyLearningLog()
         {
             var now = DateTime.Now;
@@ -62,7 +93,7 @@ namespace HikiStudio.LearnVocabulary.Application.Services
                 var vocabularyLearningLog = new VocabularyLearningLog()
                 {
                     UserID = SystemConstants.AppSettings.CreateByDefault,
-                    Duration = new TimeSpan(0,0,0),
+                    Duration = new TimeSpan(0, 0, 0),
                     Notes = null,
                     DeviceInfo = null,
                     CreatedBy = SystemConstants.AppSettings.CreateByDefault,
@@ -79,9 +110,9 @@ namespace HikiStudio.LearnVocabulary.Application.Services
             }
             else
             {
-                if (log.Duration.HasValue) 
+                if (log.Duration.HasValue)
                 {
-                    var duration = log.Duration.Value; 
+                    var duration = log.Duration.Value;
                     var result = new VocabularyLearningLogViewModel()
                     {
                         Hours = duration.Hours,
@@ -103,7 +134,7 @@ namespace HikiStudio.LearnVocabulary.Application.Services
             var now = DateTime.Now;
 
             var log = await _context.VocabularyLearningLogs.FirstOrDefaultAsync(x => x.DateCreated.Date == now.Date);
-            if(log is null)
+            if (log is null)
             {
                 var vocabularyLearningLog = new VocabularyLearningLog()
                 {
@@ -119,7 +150,7 @@ namespace HikiStudio.LearnVocabulary.Application.Services
                 await _context.VocabularyLearningLogs.AddAsync(vocabularyLearningLog);
                 await _context.SaveChangesAsync();
 
-                return new APISuccessResponse<bool>() { Message = MessageConstants.CreateSuccess(nameof(VocabularyLearningLog))};
+                return new APISuccessResponse<bool>() { Message = MessageConstants.CreateSuccess(nameof(VocabularyLearningLog)) };
             }
             else
             {

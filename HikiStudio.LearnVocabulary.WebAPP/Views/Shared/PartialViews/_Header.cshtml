@@ -15,12 +15,14 @@
             </li>
         </ul>
         <div style="display: flex; flex-direction: row; justify-content: space-between; align-items: center; width: 100%;">
-            <div>
+            <div style="min-width: 65px;">
                 <div class="stopwatch">
                     <span id="display-clock">00:00:00</span>
                 </div>
             </div>
-
+            <div class="card-course-info">
+                <span id="course-name">@DateTime.UtcNow.ToString("dd/MM/yyyy")</span>
+            </div>
             <div style="display: flex; flex-direction: row; align-items: center;">
                 <a href="javascript:void(0)" class="btn btn-outline-dark">Hikigaya Hachi</a>
                 <div class="navbar-collapse justify-content-end px-0" id="navbarNav">

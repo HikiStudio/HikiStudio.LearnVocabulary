@@ -161,33 +161,38 @@ function checkAnswerStandardized(data, answer) {
 
 function checkAnswerVocabularyWord() {
     let answerVocabularyWord = $("#answer-vocabulary-word").val();
-    if (checkAnswerStandardized(answerVocabularyWord, currentItemQuizVocabularyWord.word)) {
-        ShowToastSuccess("You answered correctly!");
-        setVocabularyWordHistoriesAndReloadTable();
-        numberOfCorrectAnswers++;
-        setNumberOfCorrectAnswers();
-        $("#answer-vocabulary-word").val("");
-        playAudio();
-        renderQuizTypes();
-    }
-    else if (checkAnswerStandardized(answerVocabularyWord, currentItemQuizVocabularyWord.definition)) {
-        ShowToastSuccess("You answered correctly!");
-        setVocabularyWordHistoriesAndReloadTable();
-        numberOfCorrectAnswers++;
-        setNumberOfCorrectAnswers();
-        $("#answer-vocabulary-word").val("");
-        playAudio();
-        renderQuizTypes();
-    }
-    else {
-        numberOfIncorrectAnswers++;
-        setNumberOfIncorrectAnswers();
-        ShowToastError("You answered wrong. Please try again.");
+    if (answerVocabularyWord !== "" && answerVocabularyWord !== undefined) {
+        if (checkAnswerStandardized(answerVocabularyWord, currentItemQuizVocabularyWord.word)) {
+            ShowToastSuccess("You answered correctly!");
+            setVocabularyWordHistoriesAndReloadTable();
+            numberOfCorrectAnswers++;
+            setNumberOfCorrectAnswers();
+            $("#answer-vocabulary-word").val("");
+            playAudio();
+            renderQuizTypes();
+        }
+        else if (checkAnswerStandardized(answerVocabularyWord, currentItemQuizVocabularyWord.definition)) {
+            ShowToastSuccess("You answered correctly!");
+            setVocabularyWordHistoriesAndReloadTable();
+            numberOfCorrectAnswers++;
+            setNumberOfCorrectAnswers();
+            $("#answer-vocabulary-word").val("");
+            playAudio();
+            renderQuizTypes();
+        }
+        else {
+            numberOfIncorrectAnswers++;
+            setNumberOfIncorrectAnswers();
+            ShowToastError("You answered wrong. Please try again.");
+        }
     }
 }
 
 $("#check-answer-vocabulary-word").click(function () {
-    checkAnswerVocabularyWord();
+    let word = $("#answer-vocabulary-word").val();
+    if (word !== "" && word !== undefined) {
+        checkAnswerVocabularyWord();
+    }
 })
 
 
@@ -301,13 +306,62 @@ function renderQuizTypes() {
     }
 }
 
+function getCourseInformation() {
+    let courseID = $("#hdCourseID").val();
+
+    if (courseID > 0) {
+        $.ajax({
+            method: "GET",
+            url: `/vocabulary-courses/get-course-by-course-id/${courseID}`,
+        })
+            .done(function (response) {
+                if (response.isSuccessed === true) {
+                    $("#course-name").text(response.resultObj.courseName);
+                }
+                else {
+                    ShowToastError(response.message);
+                }
+            })
+            .fail(function (jqXHR, textStatus, errorThrown) {
+                ShowToastError(jqXHR.responseJSON.message);
+            });
+    }
+}
+
+function setSelectedQuizTypes() {
+    let quizTypesSelect = $('#quiz-types');
+    let quizTypeIDSelected = localStorage.getItem('selectedQuizTypeID');
+    if (quizTypeIDSelected) {
+        quizTypesSelect.val(quizTypeIDSelected);
+    }
+}
 $(document).ready(function () {
+    getCourseInformation();
+
+    //#region quiz types
     setOptionQuizTypes(quizTypes, "quiz-types")
+
+    setSelectedQuizTypes();
+
+    $('#quiz-types').on('change', function () {
+        let selectedOptionId = $(this).val();
+        localStorage.setItem('selectedQuizTypeID', selectedOptionId);
+    });
+    //#endregion
 
     vocabularyTypeIDSelected = $('#vocabulary-types').find(":selected").val();
     originalVocabularyWords = getAllVocabularyWord(vocabularyTypeIDSelected);
 
     setRangeVocabularyIndex(originalVocabularyWords);
+
+    //#region add event listener
+    document.addEventListener('keydown', function (event) {
+        // Check if the pressed key is 'Enter' (key code 13)
+        if (event.keyCode === 13) {
+            playAudio();
+        }
+    });
+    //#endregion
 });
 
 $("#start-quiz").on("keydown", function (e) {
@@ -358,6 +412,7 @@ function shuffleArray(array) {
 
 function playAudio() {
     const audioClipID = $("#audio-vocabulary-word-question").data("audioclipid");
+    const audioPlayer = new Audio(); // Create a new audio element
 
     fetch(`${URLServer}/api/mp3/open/${audioClipID}`)
         .then(response => {
@@ -368,6 +423,13 @@ function playAudio() {
         })
         .then(blob => {
             const audioURL = URL.createObjectURL(blob);
+
+            // Reset the audio player
+            audioPlayer.pause();
+            audioPlayer.src = '';
+            audioPlayer.load();
+
+            // Set the new audio source and play
             audioPlayer.src = audioURL;
             audioPlayer.play();
         })
@@ -375,7 +437,6 @@ function playAudio() {
             console.error(error);
         });
 }
-
 
 //#region render table history learn vocabulary word
 var vocabularyWordHistoriesDatatable = $("#vocabularyWordHistoriesDatatable").DataTable({

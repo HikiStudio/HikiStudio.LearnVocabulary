@@ -79,7 +79,7 @@ namespace HikiStudio.LearnVocabulary.WebAPP.Controllers
         }
 
         [HttpGet("get-course-by-course-id/{courseID}")]
-        public async Task<IActionResult> GetVocabularyWordByVocabularyWordID(int courseID)
+        public async Task<IActionResult> GetCourseByCourseID(int courseID)
         {
             var result = await _courseAPIClient.GetCourseByCourseIDAsync(courseID);
             return Ok(result);

@@ -27,6 +27,14 @@ namespace HikiStudio.LearnVocabulary.API.Controllers
             return Ok(result);
         }
 
+        [HttpGet("get-statistics-vocabulary-learning/{days}")]
+        public async Task<IActionResult> GetStatisticsVocabularyLearning(int days)
+        {
+            var result = await _vocabularyLearningLogService.GetStatisticsVocabularyLearningAsync(days);
+
+            return Ok(result);
+        }
+
         [HttpGet("read")]
         public async Task<IActionResult> ReadVocabularyLearningLog()
         {

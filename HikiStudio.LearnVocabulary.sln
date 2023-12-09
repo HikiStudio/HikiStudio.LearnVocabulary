@@ -3,8 +3,6 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.7.34024.191
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HikiStudio.LearnVocabulary.DesktopAPP", "HikiStudio.LearnVocabulary.DesktopAPP\HikiStudio.LearnVocabulary.DesktopAPP.csproj", "{39C8BA12-E05F-43C6-A3D9-A4B50C6DA37D}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HikiStudio.LearnVocabulary.API", "HikiStudio.LearnVocabulary.API\HikiStudio.LearnVocabulary.API.csproj", "{AA5257FD-AA15-4310-8EA1-B4FA81CD5810}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "1. Infrastructure", "1. Infrastructure", "{BB6E6E25-175C-468C-8B3C-E5ACA7B0C3F5}"
@@ -23,7 +21,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HikiStudio.LearnVocabulary.
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HikiStudio.LearnVocabulary.Utilities", "HikiStudio.LearnVocabulary.Utilities\HikiStudio.LearnVocabulary.Utilities.csproj", "{3D8FBF3C-DB63-415E-9B54-05868F2CA5FB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HikiStudio.LearnVocabulary.WebAPP", "HikiStudio.LearnVocabulary.WebAPP\HikiStudio.LearnVocabulary.WebAPP.csproj", "{8486398F-2BD8-4ACE-8789-8CAFE0158CF1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HikiStudio.LearnVocabulary.WebAPP", "HikiStudio.LearnVocabulary.WebAPP\HikiStudio.LearnVocabulary.WebAPP.csproj", "{D6362F29-C91D-4B80-A0F7-5A49FC79BBD4}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -31,10 +29,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{39C8BA12-E05F-43C6-A3D9-A4B50C6DA37D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{39C8BA12-E05F-43C6-A3D9-A4B50C6DA37D}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{39C8BA12-E05F-43C6-A3D9-A4B50C6DA37D}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{39C8BA12-E05F-43C6-A3D9-A4B50C6DA37D}.Release|Any CPU.Build.0 = Release|Any CPU
 		{AA5257FD-AA15-4310-8EA1-B4FA81CD5810}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{AA5257FD-AA15-4310-8EA1-B4FA81CD5810}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{AA5257FD-AA15-4310-8EA1-B4FA81CD5810}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -59,23 +53,22 @@ Global
 		{3D8FBF3C-DB63-415E-9B54-05868F2CA5FB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3D8FBF3C-DB63-415E-9B54-05868F2CA5FB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3D8FBF3C-DB63-415E-9B54-05868F2CA5FB}.Release|Any CPU.Build.0 = Release|Any CPU
-		{8486398F-2BD8-4ACE-8789-8CAFE0158CF1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{8486398F-2BD8-4ACE-8789-8CAFE0158CF1}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{8486398F-2BD8-4ACE-8789-8CAFE0158CF1}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{8486398F-2BD8-4ACE-8789-8CAFE0158CF1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D6362F29-C91D-4B80-A0F7-5A49FC79BBD4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D6362F29-C91D-4B80-A0F7-5A49FC79BBD4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D6362F29-C91D-4B80-A0F7-5A49FC79BBD4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D6362F29-C91D-4B80-A0F7-5A49FC79BBD4}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
-		{39C8BA12-E05F-43C6-A3D9-A4B50C6DA37D} = {0FBD5C76-6F8D-4596-9AEE-3F56AAC8C2A8}
 		{AA5257FD-AA15-4310-8EA1-B4FA81CD5810} = {0FBD5C76-6F8D-4596-9AEE-3F56AAC8C2A8}
 		{626F2C47-64C3-41E0-A670-384DAAE3064C} = {6FB1A184-6EA5-4158-8707-2C6F9DBA671F}
 		{09F73065-689B-4A73-A860-5504B555EA34} = {6FB1A184-6EA5-4158-8707-2C6F9DBA671F}
 		{706A277D-EEDF-40CE-9810-39FF28262E70} = {BB6E6E25-175C-468C-8B3C-E5ACA7B0C3F5}
 		{5403D026-E376-4850-AE3C-6E6F2B332742} = {6FB1A184-6EA5-4158-8707-2C6F9DBA671F}
 		{3D8FBF3C-DB63-415E-9B54-05868F2CA5FB} = {BB6E6E25-175C-468C-8B3C-E5ACA7B0C3F5}
-		{8486398F-2BD8-4ACE-8789-8CAFE0158CF1} = {0FBD5C76-6F8D-4596-9AEE-3F56AAC8C2A8}
+		{D6362F29-C91D-4B80-A0F7-5A49FC79BBD4} = {0FBD5C76-6F8D-4596-9AEE-3F56AAC8C2A8}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {908D96DB-913B-4123-9F3A-DB87A35349B3}

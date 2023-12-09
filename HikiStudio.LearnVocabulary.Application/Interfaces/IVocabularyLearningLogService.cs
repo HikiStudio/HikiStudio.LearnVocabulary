@@ -8,6 +8,8 @@ namespace HikiStudio.LearnVocabulary.Application.Interfaces
     {
         Task<PagedResponse<VocabularyLearningLogViewModel>> GetPagingVocabularyLearningLogAsync(PagedRequest request);
 
+        Task<APIResponse<StatisticsVocabularyLearningViewModel>> GetStatisticsVocabularyLearningAsync(int days);
+
         Task<APIResponse<VocabularyLearningLogViewModel>> ReadVocabularyLearningLog();
 
         Task<APIResponse<bool>> WriteVocabularyLearningLog(TimeSpan duration);

@@ -1,4 +1,5 @@
 using HikiStudio.LearnVocabulary.APIIntegration.Interfaces;
+using HikiStudio.LearnVocabulary.ViewModels.Common.API;
 using HikiStudio.LearnVocabulary.ViewModels.Common.Pages;
 using HikiStudio.LearnVocabulary.ViewModels.VocabularyLearningLogs;
 using Microsoft.AspNetCore.Http;
@@ -15,6 +16,11 @@ namespace HikiStudio.LearnVocabulary.APIIntegration.Services
         public async Task<PagedResponse<VocabularyLearningLogViewModel>> GetPagingVocabularyLearningLogAsync(PagedRequest request)
         {
             return await PostAsync<PagedResponse<VocabularyLearningLogViewModel>, PagedRequest>(request, $"/api/vocabulary-learning-logs/get-paging-vocabulary-learning-logs");
+        }
+
+        public async Task<APIResponse<StatisticsVocabularyLearningViewModel>> GetStatisticsVocabularyLearningAsync(int days)
+        {
+            return await GetAsync<APIResponse<StatisticsVocabularyLearningViewModel>>($"/api/vocabulary-learning-logs/get-statistics-vocabulary-learning/{days}");
         }
     }
 }
