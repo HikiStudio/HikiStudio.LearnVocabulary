@@ -22,7 +22,7 @@ namespace HikiStudio.LearnVocabulary.WebAPP.Controllers
 
         public async Task<IActionResult> Index()
         {
-            var vocabularyWords = await _vocabularyWordAPIClient.GetAllVocabularyWordAsync(1);
+            var vocabularyWords = await _vocabularyWordAPIClient.GetAllVocabularyWordAsync(0);
             ViewData["VocabularyWords"] = vocabularyWords;
 
             return View();

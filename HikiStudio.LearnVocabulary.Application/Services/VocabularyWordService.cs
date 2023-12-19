@@ -34,7 +34,7 @@ namespace HikiStudio.LearnVocabulary.Application.Services
                 if (!resultDownloadMP3VocabularyWord.IsSuccessed)
                 return new APIErrorResponse<bool>() { Message = resultDownloadMP3VocabularyWord.Message };
 
-            var checkVocabularyWordExist = await _context.VocabularyWords.FirstOrDefaultAsync(x => x.Word.Trim().ToLower() == request.Word.Trim().ToLower());
+            var checkVocabularyWordExist = await _context.VocabularyWords.FirstOrDefaultAsync(x => x.Word.Trim().ToLower() == request.Word.Trim().ToLower() && x.VocabularyTypeID == request.VocabularyTypeID);
             if (checkVocabularyWordExist != null)
                 return new APIErrorResponse<bool>() { Message = MessageConstants.ObjectAlreadyExists(nameof(VocabularyWord)) };
 
@@ -93,7 +93,7 @@ namespace HikiStudio.LearnVocabulary.Application.Services
 
         public async Task<List<VocabularyWordViewModel>> GetAllVocabularyWordAsync(int? vocabularyTypeID)
         {
-            IQueryable<VocabularyWord> query = _context.VocabularyWords.Include(vw => vw.AudioClips);
+            IQueryable<VocabularyWord> query = _context.VocabularyWords.Include(vt => vt.VocabularyType).Include(vw => vw.AudioClips);
 
             if (vocabularyTypeID.HasValue && vocabularyTypeID != 0)
             {

@@ -2,35 +2,28 @@
 using HikiStudio.LearnVocabulary.Utilities.Constants;
 using HikiStudio.LearnVocabulary.ViewModels.Common.API;
 using HikiStudio.LearnVocabulary.ViewModels.Common.Pages;
-using HikiStudio.LearnVocabulary.ViewModels.CourseLearningLogs.DataRequest;
+using HikiStudio.LearnVocabulary.ViewModels.VocabularyTypes.DataRequest;
 using Microsoft.AspNetCore.Mvc;
 
 namespace HikiStudio.LearnVocabulary.WebAPP.Controllers
 {
-    [Route("vocabulary-quizzes")]
-    public class VocabularyQuizzesController : Controller
+    [Route("vocabulary-types")]
+    public class VocabularyTypesController : Controller
     {
         private readonly IVocabularyTypeAPIClient _vocabularyTypeAPIClient;
 
-        private readonly ICourseLearningLogAPIClient _courseLearningLogAPIClient;
-
-        public VocabularyQuizzesController(IVocabularyTypeAPIClient vocabularyTypeAPIClient, ICourseLearningLogAPIClient courseLearningLogAPIClient)
+        public VocabularyTypesController(IVocabularyTypeAPIClient vocabularyTypeAPIClient)
         {
             _vocabularyTypeAPIClient = vocabularyTypeAPIClient;
-            _courseLearningLogAPIClient = courseLearningLogAPIClient;
         }
 
-        public async Task<IActionResult> Index(int? courseID)
+        public IActionResult Index()
         {
-            var vocabularyTypes = await _vocabularyTypeAPIClient.GetAllVocabularyTypesAsync();
-            ViewData["VocabularyTypes"] = vocabularyTypes.ResultObj;
-
-            ViewBag.CourseID = courseID;
-
             return View();
         }
-        [HttpPost("get-paging-course-learning-logs/{courseID}")]
-        public async Task<IActionResult> VocabularyWords(int courseID)
+
+        [HttpPost("get-paging-vocabulary-types")]
+        public async Task<IActionResult> VocabularyTypes()
         {
             try
             {
@@ -58,7 +51,7 @@ namespace HikiStudio.LearnVocabulary.WebAPP.Controllers
                     RecordsTotal = recordsTotal
                 };
 
-                var data = await _courseLearningLogAPIClient.GetPagingCourseLearningLogByCourseIDAsync(pagedRequest, courseID);
+                var data = await _vocabularyTypeAPIClient.GetPagingVocabularyTypesAsync(pagedRequest);
 
                 return Ok(data);
             }
@@ -67,16 +60,45 @@ namespace HikiStudio.LearnVocabulary.WebAPP.Controllers
                 return BadRequest(ex.Message);
             }
         }
-        [HttpPost("create-course-learning-log")]
-        public async Task<IActionResult> CreateCourseLearningLog([FromBody] CreateCourseLearningLogRequest request)
+
+        [HttpPost("create-vocabulary-type")]
+        public async Task<IActionResult> CreateVocabularyType([FromBody] CreateVocabularyTypeRequest request)
         {
             if (!ModelState.IsValid)
-                return Ok(new APIErrorResponse<bool>(MessageConstants.ModelStateIsNotValid(nameof(CreateCourseLearningLogRequest))));
+                return Ok(new APIErrorResponse<int>(MessageConstants.ModelStateIsNotValid(nameof(CreateVocabularyTypeRequest))));
 
-            var result = await _courseLearningLogAPIClient.CreateCourseLearningLogAsync(request);
+            var result = await _vocabularyTypeAPIClient.CreateVocabularyTypeAsync(request);
 
             return Ok(result);
         }
+
+        [HttpGet("get-vocabulary-type-by-vocabulary-type-id/{vocabularyTypeID}")]
+        public async Task<IActionResult> GetVocabularyTypeByVocabularyTypeID(int vocabularyTypeID)
+        {
+            var result = await _vocabularyTypeAPIClient.GetVocabularyTypeByVocabularyTypeIDAsync(vocabularyTypeID);
+            return Ok(result);
+        }
+
+        [HttpPut("update-vocabulary-type/{vocabularyTypeID}")]
+        public async Task<IActionResult> UpdateVocabularyType([FromBody] UpdateVocabularyTypeRequest request, int vocabularyTypeID)
+        {
+            if (!ModelState.IsValid)
+                return Ok(new APIErrorResponse<bool>(MessageConstants.ModelStateIsNotValid(nameof(UpdateVocabularyTypeRequest))));
+
+            var result = await _vocabularyTypeAPIClient.UpdateVocabularyTypeAsync(request, vocabularyTypeID);
+
+            return Ok(result);
+        }
+
+        [HttpDelete("delete-vocabulary-type/{vocabularyTypeID}")]
+        public async Task<IActionResult> DeleteVocabularyType(int vocabularyTypeID)
+        {
+            var result = await _vocabularyTypeAPIClient.DeleteVocabularyTypeAsync(vocabularyTypeID);
+
+            return Ok(result);
+        }
+
+
 
     }
 }

@@ -1,4 +1,3 @@
-using HikiStudio.LearnVocabulary.APIIntegration;
 using HikiStudio.LearnVocabulary.APIIntegration.Interfaces;
 using HikiStudio.LearnVocabulary.APIIntegration.Services;
 

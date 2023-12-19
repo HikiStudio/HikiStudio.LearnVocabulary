@@ -48,10 +48,18 @@
                     <i class="ti ti-dots nav-small-cap-icon fs-4"></i>
                     <span class="hide-menu">FUNCTIONS</span>
                 </li>
+                <li class="sidebar-item @Html.IsActive("VocabularyTypes", "selected")">
+                    <a asp-action="Index" asp-controller="VocabularyTypes" class="sidebar-link @Html.IsActiveWithAction("VocabularyTypes", "Index")" aria-expanded="false">
+                        <span>
+                            <i class="ti ti-align-box-left-top"></i>
+                        </span>
+                        <span class="hide-menu">Vocabulary Types</span>
+                    </a>
+                </li>
                 <li class="sidebar-item @Html.IsActive("VocabularyWords", "selected")">
                     <a asp-action="Index" asp-controller="VocabularyWords" class="sidebar-link @Html.IsActiveWithAction("VocabularyWords", "Index")" aria-expanded="false">
                         <span>
-                            <i class="ti ti-article"></i>
+                            <i class="ti ti-language"></i>
                         </span>
                         <span class="hide-menu">Vocabulary Words</span>
                     </a>

@@ -3,7 +3,7 @@ using HikiStudio.LearnVocabulary.ViewModels.Common.Pages;
 using HikiStudio.LearnVocabulary.ViewModels.CourseLearningLogs.DataRequest;
 using HikiStudio.LearnVocabulary.ViewModels.CourseLearningLogs;
 
-namespace HikiStudio.LearnVocabulary.APIIntegration
+namespace HikiStudio.LearnVocabulary.APIIntegration.Interfaces
 {
     public interface ICourseLearningLogAPIClient
     {

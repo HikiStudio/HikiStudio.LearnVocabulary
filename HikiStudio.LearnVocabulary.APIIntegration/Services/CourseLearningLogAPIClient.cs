@@ -1,4 +1,5 @@
-﻿using HikiStudio.LearnVocabulary.ViewModels.Common.API;
+﻿using HikiStudio.LearnVocabulary.APIIntegration.Interfaces;
+using HikiStudio.LearnVocabulary.ViewModels.Common.API;
 using HikiStudio.LearnVocabulary.ViewModels.Common.Pages;
 using HikiStudio.LearnVocabulary.ViewModels.CourseLearningLogs;
 using HikiStudio.LearnVocabulary.ViewModels.CourseLearningLogs.DataRequest;

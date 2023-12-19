@@ -156,11 +156,11 @@ function CheckEnableSaveChange(event) {
     return true;
 }
 
-$(document).on('click', '#btn-create', function () {
+$("#btn-create").on('click', function () {
     $("#submit-create-vocabulary-word").attr("disabled", "disabled");
     $(".form-group.create .is-invalid").remove();
     let today = new Date().toISOString().split('T')[0];
-    $('#form-create-vocabulary-word').find("input[name='CreateDate']").val(today);
+    $('#form-create-vocabulary-word').find("input[name='created-date']").val(today);
 });
 
 $(document).ready(function () {
@@ -321,6 +321,8 @@ $(document).ready(function () {
                         $('#form-create-vocabulary-word :input[type="date"]').val('');
                         vocabularyWordsDatatable.ajax.reload();
                         $("#form-create-vocabulary-word").validate().resetForm();
+                        let today = new Date().toISOString().split('T')[0];
+                        $('#form-create-vocabulary-word').find("input[name='created-date']").val(today);
                         return;
                     }
                     else {
